@@ -1,0 +1,7 @@
+
+resources/_gen
+.vscode/launch.json
+main
+/public
+go.work
+.hugo_build.lock

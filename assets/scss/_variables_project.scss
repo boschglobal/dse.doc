@@ -1,0 +1,35 @@
+
+// Use of Bosch colors:
+//  * Red is used sparingly.
+//  * Combinations are always two adjacent colors.
+//  * Gradients are from upper to lower value (as selected from list), or left to right.
+$bosch_red: #E20015;
+$bosch_fuchsia: #B90276;
+$bosch_violet: #50237F;
+$bosch_dark_blue: #005691;
+$bosch_light_blue: #008ECF;
+$bosch_turquoise: #00A8B0;
+$bosch_light_green: #78BE20;
+$bosch_dark_green: #006249;
+$white: #fff !default;
+$light: #D3F3EE !default;
+
+
+$primary: $bosch_dark_blue;
+$primary-light: lighten($primary, 75%) !default;
+$secondary: $bosch_light_blue;
+
+$success: $bosch_light_blue !default;
+$info: $bosch_turquoise !default;
+$warning: $bosch_fuchsia !default;
+$danger: $bosch_red !default;
+
+$link-color: darken($primary, 15%) !default;
+$link-decoration: none !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: none !default;
+
+$navbar-dark-color: rgba($white, 0.85) !default;
+$navbar-dark-hover-color: rgba($white, 0.65) !default;
+$navbar-dark-active-color: $white !default;
+$navbar-dark-disabled-color: rgba($white, 0.45) !default;
