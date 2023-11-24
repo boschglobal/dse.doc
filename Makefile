@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-TOOLS := tools/plantuml
+DOCKER_DIRS = docsy-builder plantuml
 
 
 .PHONY: doc
@@ -15,11 +15,16 @@ doc:
 lint:
 	@for d in $(TOOLS); do ($(MAKE) -C $$d all ); done
 
+.PHONY: docker
+docker:
+	for d in $(DOCKER_DIRS) ;\
+	do \
+		docker build -f tools/docker/$$d/Dockerfile \
+				--tag $$d:latest ./tools/docker/$$d ;\
+	done;
 
 .PHONY: tools
-tools:
-	@for d in $(TOOLS); do ($(MAKE) -C $$d all ); done
-
+tools: docker
 
 .PHONY: clean
 clean:
