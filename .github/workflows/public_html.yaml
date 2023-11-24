@@ -24,6 +24,7 @@ jobs:
         env:
           HUGO_SECURITY_EXEC_OSENV: ".*"
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           hugo mod get -u
           hugo --minify
 
