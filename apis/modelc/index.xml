@@ -543,6 +543,7 @@ center footer Dynamic Simulation Environment
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalResetFunc&lt;/span> &lt;span style="color:#000">reset&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalReleaseFunc&lt;/span> &lt;span style="color:#000">release&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SignalAnnotationGetFunc&lt;/span> &lt;span style="color:#000">annotation&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalCodecFunc&lt;/span> &lt;span style="color:#000">codec&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">ModelInstanceSpec&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mi&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="signalvectorvtable">SignalVectorVTable&lt;/h3>
@@ -551,6 +552,7 @@ center footer Dynamic Simulation Environment
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalResetFunc&lt;/span> &lt;span style="color:#000">reset&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalReleaseFunc&lt;/span> &lt;span style="color:#000">release&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SignalAnnotationGetFunc&lt;/span> &lt;span style="color:#000">annotation&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalCodecFunc&lt;/span> &lt;span style="color:#000">codec&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="simulationspec">SimulationSpec&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">SimulationSpec&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
@@ -820,4 +822,364 @@ which will be searched.&lt;/dd>
 this object.&lt;/dd>
 &lt;dt>NULL&lt;/dt>
 &lt;dd>The object cannot be generated.&lt;/dd>
+&lt;/dl></description></item><item><title>Apis: SimMock API Reference</title><link>https://boschglobal.github.io/dse.doc/apis/modelc/simmock/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/apis/modelc/simmock/</guid><description>
+&lt;h2 id="simmock-api">SimMock API&lt;/h2>
+&lt;p>The SimMock API provides interfaces for the development of CMocka Tests with
+a representative mocked implementation of the ModelC &amp;lt;-&amp;gt; SimBus interface.
+The mock supports a Signal Vector (scalar) and Network Vector (binary).
+Several models may be loaded into the SimMock.&lt;/p>
+&lt;h3 id="component-diagram">Component Diagram&lt;/h3>
+&lt;div hidden>
+&lt;pre tabindex="0">&lt;code>@startuml simmock-objects
+title SimMock Objects
+package &amp;#34;SimBus Mock&amp;#34; {
+class Signal &amp;lt;&amp;lt;SignalVector&amp;gt;&amp;gt; {
++uint32_t count
++double scalar[]
++annotation()
+}
+class Network &amp;lt;&amp;lt;SignalVector&amp;gt;&amp;gt; {
++uint32_t count
++bool is_binary
++void* binary[]
+#NCODEC* ncodec[]
++annotation()
++append()
++reset()
+#codec()
+}
+file svSig [
+signalgroup.yaml
+....
+kind: &amp;lt;b&amp;gt;SignalGroup
+metadata:
+name: &amp;lt;b&amp;gt;signal
+labels:
+channel: &amp;lt;b&amp;gt;signal_vector
+]
+file svNet [
+signalgroup.yaml
+....
+kind: &amp;lt;b&amp;gt;SignalGroup
+metadata:
+name: &amp;lt;b&amp;gt;network
+labels:
+channel: &amp;lt;b&amp;gt;network_vector
+annotations:
+vector_type: &amp;lt;b&amp;gt;binary
+]
+Signal -&amp;gt; svSig
+Network -&amp;gt; svNet
+}
+map ModelMock {
+sv_signal *--&amp;gt; Signal
+sv_network *--&amp;gt; Network
+}
+map SimMock {
+model *--&amp;gt; ModelMock
+sv_signal *--&amp;gt; Signal
+sv_network_rx *-&amp;gt; Network
+sv_network_tx *-&amp;gt; Network
+}
+center footer Dynamic Simulation Environment
+@enduml
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>&lt;img src="simmock-objects.png" alt="">&lt;/p>
+&lt;h2 id="typedefs">Typedefs&lt;/h2>
+&lt;h3 id="framecheck">FrameCheck&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">FrameCheck&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">frame_id&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">offset&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">value&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="modelmock">ModelMock&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">ModelMock&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">const&lt;/span> &lt;span style="color:#204a87;font-weight:bold">char&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">name&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mi&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_signal&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_network&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_save&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">model_setup_func&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">model_exit_func&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="signalcheck">SignalCheck&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">SignalCheck&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">index&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">double&lt;/span> &lt;span style="color:#000">value&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="simmock">SimMock&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">SimMock&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">sim&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">double&lt;/span> &lt;span style="color:#000">step_size&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">ModelMock&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">model&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">void&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">doc_list&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">double&lt;/span> &lt;span style="color:#000">model_time&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_signal&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_network_rx&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv_network_tx&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="functions">Functions&lt;/h2>
+&lt;h3 id="simmock_alloc">simmock_alloc&lt;/h3>
+&lt;p>Create a SimMock object.&lt;/p>
+&lt;h4 id="parameters">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>inst_names[] (const char*)&lt;/dt>
+&lt;dd>Array of model instance names which should be allocated in the SimMock
+object.&lt;/dd>
+&lt;dt>count (size_t)&lt;/dt>
+&lt;dd>The number of elements in the &lt;code>inst_names&lt;/code> array.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>SimMock*&lt;/dt>
+&lt;dd>The allocated SimMock object. Caller should free by calling &lt;code>simmock_free()&lt;/code>.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_configure">simmock_configure&lt;/h3>
+&lt;p>Configure a SimMock object with a list of command line arguments (as would be
+used by the ModelC.exe).&lt;/p>
+&lt;h4 id="example">Example&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/testing.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/modelc/mocks/simmock.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">test_setup&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">void&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">**&lt;/span> &lt;span style="color:#000">state&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">const&lt;/span> &lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">inst_names&lt;/span>&lt;span style="color:#000;font-weight:bold">[]&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#4e9a06">&amp;#34;target_inst&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#4e9a06">&amp;#34;network_inst&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">argv&lt;/span>&lt;span style="color:#000;font-weight:bold">[]&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;test_runnable&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;--name=target_inst;network_inst&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;--logger=5&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#8f5902;font-style:italic">// 1=debug, 5=QUIET (commit with 5!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;../../../../tests/cmocka/network/stack.yaml&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;../../../../tests/cmocka/network/signalgroup.yaml&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;../../../../tests/cmocka/network/network.yaml&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;../../../../tests/cmocka/network/model.yaml&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;../../../../tests/cmocka/network/runnable.yaml&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SimMock&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mock&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">simmock_alloc&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">inst_names&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">ARRAY_SIZE&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">inst_names&lt;/span>&lt;span style="color:#000;font-weight:bold">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_configure&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">argv&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">ARRAY_SIZE&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">argv&lt;/span>&lt;span style="color:#000;font-weight:bold">),&lt;/span> &lt;span style="color:#000">ARRAY_SIZE&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">inst_names&lt;/span>&lt;span style="color:#000;font-weight:bold">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_load&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#204a87">true&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_setup&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;signal&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;network&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">/* Return the mock. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">state&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">return&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;h4 id="parameters-1">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>argv (char*)&lt;/dt>
+&lt;dd>Array of arguments.&lt;/dd>
+&lt;dt>argc (size_t)&lt;/dt>
+&lt;dd>Number of elements in the &lt;code>argv&lt;/code> array.&lt;/dd>
+&lt;dt>expect_model_count (size_t)&lt;/dt>
+&lt;dd>The expected number of models to be configured (based on the parsed
+list of arguments).&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_exit">simmock_exit&lt;/h3>
+&lt;p>Call &lt;code>model_exit()&lt;/code> for each model.&lt;/p>
+&lt;h4 id="parameters-2">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_find_model">simmock_find_model&lt;/h3>
+&lt;p>Find a MockModel object contained within a SimMock object.&lt;/p>
+&lt;h4 id="parameters-3">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>name (const char*)&lt;/dt>
+&lt;dd>The name of the model to find.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns-1">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>MockModel*&lt;/dt>
+&lt;dd>The identified MockModel object.&lt;/dd>
+&lt;dt>NULL&lt;/dt>
+&lt;dd>No MockModel was found.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_frame_check">simmock_frame_check&lt;/h3>
+&lt;p>Check the content of a binary signal for various frames. The binary signal
+should be represented by a Network Codec (NCodec) object.&lt;/p>
+&lt;h4 id="example-1">Example&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/testing.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/modelc/mocks/simmock.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">void&lt;/span> &lt;span style="color:#000">test_network__frame_check&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">void&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">**&lt;/span> &lt;span style="color:#000">state&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SimMock&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mock&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">state&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">/* 0ms - initial tick, Rx consumed, Tx of initial content. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">for&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">uint32_t&lt;/span> &lt;span style="color:#000">i&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span> &lt;span style="color:#000">i&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span> &lt;span style="color:#000">i&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">++&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">assert_int_equal&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">simmock_step&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#204a87">true&lt;/span>&lt;span style="color:#000;font-weight:bold">),&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">FrameCheck&lt;/span> &lt;span style="color:#000">f_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">[]&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">frame_id&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x1f3u&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">offset&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x01&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">frame_id&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x1f4u&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">offset&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x02&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">frame_id&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x1f5u&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">offset&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">4&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0x02&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_print_network_frames&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">LOG_DEBUG&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_frame_check&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;network_inst&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;can_bus&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">f_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">ARRAY_SIZE&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">f_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;h4 id="parameters-4">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>model_name (const char*)&lt;/dt>
+&lt;dd>The name of the model to check.&lt;/dd>
+&lt;dt>sig_name (const char*)&lt;/dt>
+&lt;dd>The name of the binary signal where frames should be located.&lt;/dd>
+&lt;dt>checks (FrameCheck*)&lt;/dt>
+&lt;dd>Array of FrameCheck objects.&lt;/dd>
+&lt;dt>count (size_t)&lt;/dt>
+&lt;dd>The number elements in the checks array.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_free">simmock_free&lt;/h3>
+&lt;p>Destroy and free resources allocated to a SimMock object.&lt;/p>
+&lt;h4 id="parameters-5">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>The SimMock object to be released.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_load">simmock_load&lt;/h3>
+&lt;p>Load all of the models referenced by a SimMock object.&lt;/p>
+&lt;h4 id="parameters-6">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>expect_exit_function (bool)&lt;/dt>
+&lt;dd>Indicate that model libraries should contain a &lt;code>model_exit&lt;/code> function.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_print_network_frames">simmock_print_network_frames&lt;/h3>
+&lt;p>Print the frames contained in each network vector of each model.&lt;/p>
+&lt;h4 id="parameters-7">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>level (int)&lt;/dt>
+&lt;dd>The log level to print at.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_print_scalar_signals">simmock_print_scalar_signals&lt;/h3>
+&lt;p>Print the scalar signal values of each signal vector of each model.&lt;/p>
+&lt;h4 id="parameters-8">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>level (int)&lt;/dt>
+&lt;dd>The log level to print at.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_read_frame">simmock_read_frame&lt;/h3>
+&lt;p>Read a frame, using the associated NCodec object, from the specified
+binary signal.&lt;/p>
+&lt;h4 id="parameters-9">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>sv (SignalVector*)&lt;/dt>
+&lt;dd>A Signal Vector object.&lt;/dd>
+&lt;dt>sig_name (const char*)&lt;/dt>
+&lt;dd>The name of the binary signal where frames should be written.&lt;/dd>
+&lt;dt>data (uint8_t*)&lt;/dt>
+&lt;dd>Array for the read data. The data is preallocated by the caller.&lt;/dd>
+&lt;dt>len (size_t)&lt;/dt>
+&lt;dd>Length of the data array.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns-2">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>uint32_t&lt;/dt>
+&lt;dd>The Frame ID associated with the read data.&lt;/dd>
+&lt;dt>0&lt;/dt>
+&lt;dd>No frame was found in the specified binary signal.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_setup">simmock_setup&lt;/h3>
+&lt;p>Calls the &lt;code>model_setup()&lt;/code> function on each model and then creates Signal Vectors
+for each model. Additional Signal Vectors are created to facilitate the
+mocked behaviour of a simulation (via the SimMock object).&lt;/p>
+&lt;h4 id="parameters-10">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>sig_name (const char*)&lt;/dt>
+&lt;dd>The name of the scalar channel.&lt;/dd>
+&lt;dt>sig_name (const char*)&lt;/dt>
+&lt;dd>The name of the binary channel.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_signal_check">simmock_signal_check&lt;/h3>
+&lt;p>Check the values of various signals on the Signal Vector (scalar).&lt;/p>
+&lt;h4 id="example-2">Example&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/testing.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/modelc/mocks/simmock.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#define SIG_task_init_done 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#define SIG_task_5_active 2
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#define SIG_task_5_counter 6
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">void&lt;/span> &lt;span style="color:#000">test_network__signal_check&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">void&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">**&lt;/span> &lt;span style="color:#000">state&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SimMock&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mock&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">state&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">/* 0ms - initial tick, Rx consumed, Tx of initial content. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">for&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">uint32_t&lt;/span> &lt;span style="color:#000">i&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span> &lt;span style="color:#000">i&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span> &lt;span style="color:#000">i&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">++&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">assert_int_equal&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">simmock_step&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#204a87">true&lt;/span>&lt;span style="color:#000;font-weight:bold">),&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SignalCheck&lt;/span> &lt;span style="color:#000">s_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">[]&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">index&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">SIG_task_init_done&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1.0&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">index&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">SIG_task_5_active&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0.0&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">index&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">SIG_task_5_counter&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">value&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">0.0&lt;/span> &lt;span style="color:#000;font-weight:bold">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_print_scalar_signals&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">LOG_DEBUG&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">simmock_signal_check&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">mock&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;network_inst&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">s_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">ARRAY_SIZE&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">s_checks&lt;/span>&lt;span style="color:#000;font-weight:bold">),&lt;/span> &lt;span style="color:#204a87">NULL&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;h4 id="parameters-11">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>model_name (const char*)&lt;/dt>
+&lt;dd>The name of the model to check.&lt;/dd>
+&lt;dt>checks (SignalCheck*)&lt;/dt>
+&lt;dd>Array of SignalCheck objects.&lt;/dd>
+&lt;dt>count (size_t)&lt;/dt>
+&lt;dd>The number elements in the checks array.&lt;/dd>
+&lt;dt>func (SignalCheckFunc)&lt;/dt>
+&lt;dd>Optional function pointer for performing the signal check.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_step">simmock_step&lt;/h3>
+&lt;p>Calls &lt;code>model_step()&lt;/code> on each model and manages the mocked exchange of both
+scalar and binary Signal Vectors.&lt;/p>
+&lt;h4 id="parameters-12">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>mock (SimMock*)&lt;/dt>
+&lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>assert_rc (bool)&lt;/dt>
+&lt;dd>Indicate that an assert check (value 0) should be made for each return
+from a call to &lt;code>model_step()&lt;/code>.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns-3">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>int&lt;/dt>
+&lt;dd>The combined (or&amp;rsquo;ed) return code of each call to &lt;code>model_step()&lt;/code>.&lt;/dd>
+&lt;/dl>
+&lt;h3 id="simmock_write_frame">simmock_write_frame&lt;/h3>
+&lt;p>Write a frame, using the associated NCodec object, to the specified
+binary signal.&lt;/p>
+&lt;h4 id="parameters-13">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>sv (SignalVector*)&lt;/dt>
+&lt;dd>A Signal Vector object.&lt;/dd>
+&lt;dt>sig_name (const char*)&lt;/dt>
+&lt;dd>The name of the binary signal where frames should be written.&lt;/dd>
+&lt;dt>data (uint8_t*)&lt;/dt>
+&lt;dd>Array of data to write (in the frame).&lt;/dd>
+&lt;dt>len (size_t)&lt;/dt>
+&lt;dd>Length of the data array.&lt;/dd>
+&lt;dt>frame_id (uint32_t)&lt;/dt>
+&lt;dd>The Frame ID associated with the data.&lt;/dd>
 &lt;/dl></description></item></channel></rss>
