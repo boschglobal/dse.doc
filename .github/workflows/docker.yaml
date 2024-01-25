@@ -40,6 +40,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: ./tools/docker/${{ matrix.image }}
+          context: ./tools/${{ matrix.image }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
