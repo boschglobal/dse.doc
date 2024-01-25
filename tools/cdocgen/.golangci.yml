@@ -1,0 +1,9 @@
+run:
+  timeout: 5m
+  tests: true
+  skip-dirs: []
+  skip-dirs-use-default: true
+  skip-files: []
+  modules-download-mode: readonly
+  allow-parallel-runners: false
+  go: '1.19'
