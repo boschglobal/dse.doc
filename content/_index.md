@@ -23,7 +23,7 @@ The Dynamic Simulation Environment (DSE) can be used to integrate legacy tools i
 
 {{% blocks/section color="dark" type="row" %}}
 
-{{% blocks/feature icon="fab fa-github" title="Getting Started!" url="docs/start/" %}}
+{{% blocks/feature icon="fab fa-github" title="Getting Started" url="docs/start/" %}}
 Get started with the DSE.
 {{% /blocks/feature %}}
 
@@ -31,7 +31,7 @@ Get started with the DSE.
 We do a <b>Pull Request</b> contributions workflow on **GitHub**.
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fab fa-stack-overflow" title="Stack Overflow!" url="https://stackoverflow.com/questions/tagged/modelc" %}}
+{{% blocks/feature icon="fab fa-stack-overflow" title="GitHub Discussions" url="https://github.com/boschglobal/dse.modelc/discussions" %}}
 Ask technical questions.
 {{% /blocks/feature %}}
 

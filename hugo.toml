@@ -99,8 +99,13 @@ enable = false
 enable = false
 
 [params.links]
+[[params.links.user]]
+  name = "GitHub Discussions"
+  url = "https://github.com/boschglobal/dse.modelc/discussions"
+  icon = "fab fa-github"
+  desc = "GitHub Discussions"
 [[params.links.developer]]
-  name = "DSE @ BoschGlobal"
+  name = "GitHub"
   url = "https://github.com/boschglobal?q=dse&type=all"
   icon = "fab fa-github"
   desc = "Contribute to DSE here!"
