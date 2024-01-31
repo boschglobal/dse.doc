@@ -7,7 +7,7 @@ a single documentation system which is then published.&lt;/p>
 the Documentation Repo for the content to be merged correctly.&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="layout">Layout&lt;/h2>
-&lt;h2 id="repo-documentation">Repo Documentation&lt;/h2>
+&lt;h3 id="repo-documentation">Repo Documentation&lt;/h3>
 &lt;p>When writing documentation construct a layout as described in the following section.
 The entire&lt;code>doc/content&lt;/code> folder of your Git Repo will be mounted (effectively merged) into the &lt;code>doc/content&lt;/code> folder of the documentation system, therefore pay special attention to the following naming conventions to avoid conflicts with content from other repos:&lt;/p>
 &lt;ul>
