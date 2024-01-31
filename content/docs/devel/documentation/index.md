@@ -15,7 +15,7 @@ the Documentation Repo for the content to be merged correctly.
 
 ## Layout
 
-## Repo Documentation
+### Repo Documentation
 
 When writing documentation construct a layout as described in the following section.
 The entire`doc/content` folder of your Git Repo will be mounted (effectively merged) into the `doc/content` folder of the documentation system, therefore pay special attention to the following naming conventions to avoid conflicts with content from other repos:
