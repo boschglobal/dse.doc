@@ -1,43 +1,84 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dynamic Simulation Environment – Documentation</title><link>https://boschglobal.github.io/dse.doc/docs/</link><description>Recent content in Documentation on Dynamic Simulation Environment</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://boschglobal.github.io/dse.doc/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Documentation Systems</title><link>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</guid><description>
-&lt;h2 id="hugo--docsy">Hugo / Docsy&lt;/h2>
-&lt;p>The documentation system is built using Hugo with the Docsy theme. Content is
-written in Markdown format. General information is available at these links:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://gohugo.io/">Hugo&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.docsy.dev/">Docsy&lt;/a>&lt;/li>
-&lt;li>Markdown :
-&lt;ul>
-&lt;li>&lt;a href="https://www.markdownguide.org/basic-syntax/">Basic Syntax&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.markdownguide.org/extended-syntax/">Extended Syntax&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet with GitHub flavour&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;a href="https://gohugo.io/content-management/page-bundles/">Hugo Page Bundles&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>Most of the content is pulled from other Git Repos and mounted into the
-content directory. Therefore, the same documentation may be reused in
-several documentation systems.&lt;/p>
-&lt;h3 id="content-organisation">Content Organisation&lt;/h3>
+&lt;p>The documentation system is built by pulling content from individual Git Repos into
+a Hugo/Docsy project. The Hugo build system then consolidates that content into
+a single documentation system which is then published.&lt;/p>
 &lt;blockquote>
-&lt;p>Warning: Hugo content organisation is not always explained well. For instance, &amp;ldquo;leaf means it has no children&amp;rdquo;, really does not explain what a &lt;em>leaf&lt;/em> is &amp;hellip; and since when do leaves have children? or not have them? This &lt;a href="https://discourse.gohugo.io/t/explanation-of-page-bundles/36686">post&lt;/a> is helpful if you suspect that the Hugo documentation seems to be missing the point.&lt;/p>
+&lt;p>Hint: Documentation in each Git Repo needs to follow the same layout and structure as
+the Documentation Repo for the content to be merged correctly.&lt;/p>
 &lt;/blockquote>
-&lt;p>In Hugo, content is organised as &lt;a href="https://gohugo.io/content-management/page-bundles">Page Bundles&lt;/a>, which are, in turn collections of &lt;a href="https://gohugo.io/content-management/page-resources/">Page Resources&lt;/a>.
-Page bundles are simply a collection of related files (i.e. page resources) all placed in the same directory.
-Page bundles may either be a Leaf Bundle (directory contains file &lt;code>index.md&lt;/code>) or a Branch Bundle (directory contains file &lt;code>_index.md&lt;/code>).
-A simple Page can be difficult to work with, especially if your content includes images.&lt;/p>
-&lt;pre tabindex="0">&lt;code>content/
-└── docs
-├── page.md &amp;lt;-- page
-├── leaf &amp;lt;-- page bundle, specifically a leaf bundle
-│ ├── leaf.jpg
-│ └── index.md
-└── branch &amp;lt;-- page bundle, specifically a branch bundle
-├── page-1.md
-├── page-2.md
-├── branch.jpg
-└── _index.md
-&lt;/code>&lt;/pre>&lt;p>In terms of arranging content, a Branch Bundle may contain other Bundles (Branch or Leaf), where as a Leaf Bundle may not contain other Bundles. This arrangement is reflected in the structure of the site.&lt;/p>
-&lt;h2 id="doc-generation">Doc Generation&lt;/h2>
+&lt;h2 id="layout">Layout&lt;/h2>
+&lt;h2 id="repo-documentation">Repo Documentation&lt;/h2>
+&lt;p>When writing documentation construct a layout as described in the following section.
+The entire&lt;code>doc/content&lt;/code> folder of your Git Repo will be mounted (effectively merged) into the &lt;code>doc/content&lt;/code> folder of the documentation system, therefore pay special attention to the following naming conventions to avoid conflicts with content from other repos:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>repo&lt;/code> - Typically the tail part of your repo name (i.e &lt;code>fsil.runnable&lt;/code> becomes &lt;code>runnable&lt;/code>).&lt;/li>
+&lt;li>&lt;code>topic&lt;/code> - A unique topic name. If you are describing the architecture of a model, then the topic can be the name of that model (which is also typically the &lt;code>repo&lt;/code> name).&lt;/li>
+&lt;li>&lt;code>model&lt;/code> - If your repo represents a model, then use that name (which is also typically the &lt;code>repo&lt;/code> name).&lt;/li>
+&lt;li>&lt;code>tool&lt;/code> - The name of a tool or script that you are documenting.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Hint: No need to over think it, just use your repo name as the stem for the name ofyour page bundle folder (Hugo term).&lt;/p>
+&lt;/blockquote>
+&lt;pre tabindex="0">&lt;code>doc/
+└── content/
+└── apis/ &amp;lt;-- *** mount point for apis content ***
+└── &amp;lt;repo&amp;gt;/... &amp;lt;-- generated API documentation
+└── docs/ &amp;lt;-- *** mount point for docs content ***
+└── arch/
+└── &amp;lt;topic&amp;gt;|&amp;lt;model&amp;gt;/
+└── index.md &amp;lt;-- documentation, primary content for leaf bundle
+└── image.png
+└── devel/
+└── &amp;lt;repo&amp;gt;_&amp;lt;topic&amp;gt;/
+└── examples/ &amp;lt;-- example code, belongs to the bundle
+└── index.md &amp;lt;-- documentation
+└── image.png &amp;lt;-- exported images (e.g. from yEd)
+└── examples/&amp;lt;repo&amp;gt;/... &amp;lt;-- example code, alternative location
+└── user/
+└── models/
+└── &amp;lt;model&amp;gt;/
+└── index.md &amp;lt;-- documentation
+└── tools/
+└── &amp;lt;tool&amp;gt;/
+└── index.md &amp;lt;-- documentation
+yed/ &amp;lt;-- yEd image source files
+Makefile &amp;lt;-- generate implementation
+Makefile &amp;lt;-- generate target
+&lt;/code>&lt;/pre>&lt;h3 id="mount-configuration">Mount Configuration&lt;/h3>
+&lt;p>Content from Git Repos is mounted into the documentation system using the &lt;code>hugo.toml&lt;/code> file.
+Additionally the &lt;code>go.mod&lt;/code> needs to be updated to reference the correct version of the Git Repo.&lt;/p>
+&lt;h4 id="file-hugotoml">File: hugo.toml&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># DSE ModelC&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># -----------&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">[[&lt;/span>&lt;span style="color:#000">module&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">imports&lt;/span>&lt;span style="color:#000;font-weight:bold">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">path&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;github.com/boschglobal/dse.modelc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">disable&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">ignoreConfig&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">[[&lt;/span>&lt;span style="color:#000">module&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">imports&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">mounts&lt;/span>&lt;span style="color:#000;font-weight:bold">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">source&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;doc/content/apis&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">target&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;content/apis&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">[[&lt;/span>&lt;span style="color:#000">module&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">imports&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">mounts&lt;/span>&lt;span style="color:#000;font-weight:bold">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">source&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;doc/content/docs&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">target&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;content/docs&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">...&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="file-gomod">File: go.mod&lt;/h4>
+&lt;p>For repos with version 2+ it is necessary to manually update the go.mod file.&lt;/p>
+&lt;blockquote>
+&lt;p>Note: Modifications to &lt;code>go.mod&lt;/code> will eventually be scripted.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">module&lt;/span> &lt;span style="color:#000">github&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">com&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">boschglobal&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">dse&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">doc&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">go&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1.19&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">require&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">github&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">com&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">boschglobal&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">dse&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">clib&lt;/span> &lt;span style="color:#000">v1&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">.0.5&lt;/span> &lt;span style="color:#8f5902;font-style:italic">// indirect
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#000">github&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">com&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">boschglobal&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">dse&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">modelc&lt;/span> &lt;span style="color:#000">v2&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">.0.0&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">+&lt;/span>&lt;span style="color:#000">incompatible&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">github&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">com&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">boschglobal&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">dse&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">schemas&lt;/span> &lt;span style="color:#000">v1&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">.1.4&lt;/span> &lt;span style="color:#8f5902;font-style:italic">// indirect
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#000">github&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">com&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">boschglobal&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">/&lt;/span>&lt;span style="color:#000">dse&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">standards&lt;/span> &lt;span style="color:#000">v1&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">.0.3&lt;/span> &lt;span style="color:#8f5902;font-style:italic">// indirect
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#8f5902;font-style:italic">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="generation">Generation&lt;/h2>
 &lt;p>Several Repos/Projects have generated documentation. This documentation is
 updated with the following generalised process:&lt;/p>
 &lt;ol>
@@ -64,12 +105,52 @@ following sections.&lt;/p>
 &lt;li>PlantUML images generated from embedded diagrams (tools/plantuml).&lt;/li>
 &lt;li>Examples read from source files, and also included in build for quality assurance of example code.&lt;/li>
 &lt;/ul>
+&lt;p>An example of API Doc Generation is available in this &lt;a href="https://github.com/boschglobal/dse.modelc/blob/main/doc/Makefile">Makefile&lt;/a>.&lt;/p>
 &lt;h3 id="yaml-based-schema-documentation">YAML based Schema Documentation&lt;/h3>
 &lt;ul>
 &lt;li>OpenAPI schema definition with embedded documentation (including examples).&lt;/li>
 &lt;li>Validation (swagger) and generation (widdershins).&lt;/li>
 &lt;li>Additional templating (adding Hugo metadata) with sed.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Signal Vectors</title><link>https://boschglobal.github.io/dse.doc/docs/arch/signalvector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/arch/signalvector/</guid><description>
+&lt;/ul>
+&lt;p>An example of Schema Doc Generation is available in this &lt;a href="https://github.com/boschglobal/dse.schemas/blob/main/Makefile">Makefile&lt;/a>.&lt;/p>
+&lt;h2 id="hugo--docsy">Hugo / Docsy&lt;/h2>
+&lt;p>The documentation system is built using Hugo with the Docsy theme. Content is
+written in Markdown format. General information is available at these links:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://gohugo.io/">Hugo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.docsy.dev/">Docsy&lt;/a>&lt;/li>
+&lt;li>Markdown :
+&lt;ul>
+&lt;li>&lt;a href="https://www.markdownguide.org/basic-syntax/">Basic Syntax&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.markdownguide.org/extended-syntax/">Extended Syntax&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet with GitHub flavour&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="https://gohugo.io/content-management/page-bundles/">Hugo Page Bundles&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Most of the content is pulled from other Git Repos and mounted into the
+content directory. Therefore, the same documentation may be reused in
+several documentation systems.&lt;/p>
+&lt;h3 id="hugo-content-organisation">Hugo Content Organisation&lt;/h3>
+&lt;blockquote>
+&lt;p>Warning: Hugo content organisation is not always explained well. For instance, &amp;ldquo;leaf means it has no children&amp;rdquo;, really does not explain what a &lt;em>leaf&lt;/em> is &amp;hellip; and since when do leaves have children? or not have them? This &lt;a href="https://discourse.gohugo.io/t/explanation-of-page-bundles/36686">post&lt;/a> is helpful if you suspect that the Hugo documentation seems to be missing the point.&lt;/p>
+&lt;/blockquote>
+&lt;p>In Hugo, content is organised as &lt;a href="https://gohugo.io/content-management/page-bundles">Page Bundles&lt;/a>, which are, in turn collections of &lt;a href="https://gohugo.io/content-management/page-resources/">Page Resources&lt;/a>.
+Page bundles are simply a collection of related files (i.e. page resources) all placed in the same directory.
+Page bundles may either be a Leaf Bundle (directory contains file &lt;code>index.md&lt;/code>) or a Branch Bundle (directory contains file &lt;code>_index.md&lt;/code>).
+A simple Page can be difficult to work with, especially if your content includes images.&lt;/p>
+&lt;pre tabindex="0">&lt;code>content/
+└── docs
+├── page.md &amp;lt;-- page
+├── leaf &amp;lt;-- page bundle, specifically a leaf bundle
+│ ├── leaf.jpg
+│ └── index.md
+└── branch &amp;lt;-- page bundle, specifically a branch bundle
+├── page-1.md
+├── page-2.md
+├── branch.jpg
+└── _index.md
+&lt;/code>&lt;/pre>&lt;p>In terms of arranging content, a Branch Bundle may contain other Bundles (Branch or Leaf), where as a Leaf Bundle may not contain other Bundles. This arrangement is reflected in the structure of the site.&lt;/p></description></item><item><title>Docs: Signal Vectors</title><link>https://boschglobal.github.io/dse.doc/docs/arch/signalvector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/arch/signalvector/</guid><description>
 &lt;h2 id="synopsis">Synopsis&lt;/h2>
 &lt;p>The Dynamic Simulation Environment (DSE) presents models with a simple vector interface for the exchange of signals. Those signals can be either:&lt;/p>
 &lt;ul>
