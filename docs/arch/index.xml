@@ -90,48 +90,6 @@ Generally calling &lt;code>sv-&amp;gt;release()&lt;/code> is not necessary and, 
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;a href="https://github.com/boschglobal/automotive-bus-schema/blob/main/schemas/stream/frame.fbs">Frame Stream Interface (Automotive Bus)&lt;/a> with &lt;a href="https://github.com/boschglobal/automotive-bus-schema/tree/main/examples/streams">sample&lt;/a> code.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Gateway Models</title><link>https://boschglobal.github.io/dse.doc/docs/arch/clib.fmi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/arch/clib.fmi/</guid><description>
-&lt;h2 id="synopsis">Synopsis&lt;/h2>
-&lt;p>The Dynamic Simulation Environment (DSE) provides a Gateway API which can be used to connect remote simulations, via a gateway model, to a running DSE simulation. A gateway model takes care of signal exchange and time synchronisation between the remote simulation and the DSE simulation. Signals can be either scalar values or binary strings, the latter enabling virtual bus connections between simulation environments.&lt;/p>
-&lt;p>The gateway model runs in the remote simulation, and is written in that systems native language (or modelling construct). Connections from the gateway model to the DSE simulation are implemented with platform independent protocols, the resultant distributed simulation may combine any number of operating systems and processor architectures.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">#include&lt;/span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;dse/modelc/gateway.h&amp;gt;&lt;/span>&lt;span style="color:#8f5902;font-style:italic">
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">/* Setup the gateway. */&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">ModelGatewayDesc&lt;/span> &lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">model_gw_setup&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;gateway&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">yaml_files&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">LOG_INFO&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">step_size&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">end_time&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">/* Run the simulation. */&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">while&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">model_time&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;=&lt;/span> &lt;span style="color:#000">end_time&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">marshal_signal_vectors_out&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">-&amp;gt;&lt;/span>&lt;span style="color:#000">sv&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span> &lt;span style="color:#000">rc&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">model_gw_sync&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">model_time&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">marshal_signal_vectors_in&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">-&amp;gt;&lt;/span>&lt;span style="color:#000">sv&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000;font-weight:bold">...&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">/* Exit the simulation. */&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">model_gw_exit&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">gw&lt;/span>&lt;span style="color:#000;font-weight:bold">);&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="design">Design&lt;/h2>
-&lt;h3 id="deployment">Deployment&lt;/h3>
-&lt;p>A generalised deployment showing how a remote simulation is connected to a DSE simulation using a gateway model. Each simulation has several models, synchronisation and signal exchange are achieved via the gateway model.&lt;/p>
-&lt;figure>
-&lt;img src="gateway-deploy.png"
-alt="Gateway Model Deployment"/> &lt;figcaption>
-&lt;p>Gateway Model Deployment&lt;/p>
-&lt;/figcaption>
-&lt;/figure>
-&lt;h3 id="sequence-diagram">Sequence Diagram&lt;/h3>
-&lt;p>The following diagram shows how a gateway model running in a remote simulation interacts with a DSE simulation.&lt;/p>
-&lt;figure>
-&lt;img src="gateway-sequence.png"
-alt="Gateway Model Sequence Diagram"/> &lt;figcaption>
-&lt;p>Gateway Model Sequence Diagram&lt;/p>
-&lt;/figcaption>
-&lt;/figure>
-&lt;h2 id="references">References&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/gateway.h">dse/modelc/gateway.h&lt;/a> - Gateway API header file.&lt;/li>
-&lt;li>&lt;a href="https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/model/gateway.c">dse/modelc/model/gateway.c&lt;/a> - Gateway API implementation and documentation.&lt;/li>
-&lt;li>&lt;a href="https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/examples/gateway">dse/modelc/examples/gateway&lt;/a> - Example gateway model.&lt;/li>
 &lt;/ul></description></item><item><title>Docs: Gateway Models</title><link>https://boschglobal.github.io/dse.doc/docs/arch/gateway/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/arch/gateway/</guid><description>
 &lt;h2 id="synopsis">Synopsis&lt;/h2>
 &lt;p>The Dynamic Simulation Environment (DSE) provides a Gateway API which can be used to connect remote simulations, via a gateway model, to a running DSE simulation. A gateway model takes care of signal exchange and time synchronisation between the remote simulation and the DSE simulation. Signals can be either scalar values or binary strings, the latter enabling virtual bus connections between simulation environments.&lt;/p>
