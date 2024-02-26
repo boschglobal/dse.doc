@@ -124,6 +124,7 @@ center footer Dynamic Simulation Environment
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">int&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">sv&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">const&lt;/span> &lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">**&lt;/span> &lt;span style="color:#000">argv&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">char&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">name_arg&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">double&lt;/span> &lt;span style="color:#000">clock_epsilon&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="functions">Functions&lt;/h2>
 &lt;h3 id="model_gw_exit">model_gw_exit&lt;/h3>
@@ -481,6 +482,7 @@ center footer Dynamic Simulation Environment
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">SignalAnnotationGetFunc&lt;/span> &lt;span style="color:#000">annotation&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalCodecFunc&lt;/span> &lt;span style="color:#000">codec&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">ModelInstanceSpec&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">mi&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">void&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">index&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="signalvectorvtable">SignalVectorVTable&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">typedef&lt;/span> &lt;span style="color:#204a87;font-weight:bold">struct&lt;/span> &lt;span style="color:#000">SignalVectorVTable&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
@@ -491,6 +493,22 @@ center footer Dynamic Simulation Environment
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">BinarySignalCodecFunc&lt;/span> &lt;span style="color:#000">codec&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="functions">Functions&lt;/h2>
+&lt;h3 id="model_annotation">model_annotation&lt;/h3>
+&lt;p>Retrieve the specified annotation from the Model specification.&lt;/p>
+&lt;h4 id="parameters">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>model (ModelDesc*)&lt;/dt>
+&lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
+&lt;dt>name (const char*)&lt;/dt>
+&lt;dd>The name of the annotation.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>const char*&lt;/dt>
+&lt;dd>The value of the specified annotation.&lt;/dd>
+&lt;dt>NULL&lt;/dt>
+&lt;dd>The specified annotation was not found.&lt;/dd>
+&lt;/dl>
 &lt;h3 id="model_create">model_create&lt;/h3>
 &lt;blockquote>
 &lt;p>Optional method of &lt;code>ModelVTable&lt;/code> interface.&lt;/p>
@@ -502,12 +520,12 @@ resources then the &lt;code>model_destroy()&lt;/code> method should also be impl
 &lt;p>Fault conditions can be communicated to the caller by setting variable
 &lt;code>errno&lt;/code> to a non-zero value. Additionally, &lt;code>log_fatal()&lt;/code> can be used to
 immediately halt execution of a model.&lt;/p>
-&lt;h4 id="parameters">Parameters&lt;/h4>
+&lt;h4 id="parameters-1">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>model (ModelDesc*)&lt;/dt>
 &lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns">Returns&lt;/h4>
+&lt;h4 id="returns-1">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>NULL&lt;/dt>
 &lt;dd>The Channel was configured.&lt;/dd>
@@ -572,7 +590,7 @@ don&amp;rsquo;t call &lt;code>free()&lt;/code>).&lt;/dd>
 function may be implemented by a Model Integrator to perform any custom
 cleanup operations (e.g. releasing instance related resources, such as open
 files or allocated memory).&lt;/p>
-&lt;h4 id="parameters-1">Parameters&lt;/h4>
+&lt;h4 id="parameters-2">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>model (ModelDesc*)&lt;/dt>
 &lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
@@ -585,20 +603,39 @@ a different index method by mutilating the Model Descriptor in the
 &lt;/blockquote>
 &lt;p>A model may use this method to index a signal that is contained within the
 Signal Vectors of the Model Descriptor.&lt;/p>
-&lt;h4 id="parameters-2">Parameters&lt;/h4>
+&lt;h4 id="parameters-3">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>model (ModelDesc*)&lt;/dt>
 &lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
 &lt;dt>vname (const char*)&lt;/dt>
 &lt;dd>The name (alias) of the Signal Vector.&lt;/dd>
 &lt;dt>sname (const char*)&lt;/dt>
-&lt;dd>The name of the signal within the Signal Vector.&lt;/dd>
+&lt;dd>The name of the signal within the Signal Vector. When set to NULL the index
+will match on Signal Vector (vanme) only.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-1">Returns&lt;/h4>
+&lt;h4 id="returns-2">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>ModelSignalIndex&lt;/dt>
 &lt;dd>An index. When valid, either the &lt;code>scalar&lt;/code> or &lt;code>binary&lt;/code> fields will be set to
-a valid pointer (i.e. not NULL).&lt;/dd>
+a valid pointer (i.e. not NULL). When &lt;code>sname&lt;/code> is not specified the index will
+contain a valid pointer to a Signal Vector object only (i.e. both &lt;code>scalar&lt;/code>
+and &lt;code>binary&lt;/code> will be set to NULL).&lt;/dd>
+&lt;/dl>
+&lt;h3 id="model_instance_annotation">model_instance_annotation&lt;/h3>
+&lt;p>Retrieve the specified annotation from the Model instance (Stack specification).&lt;/p>
+&lt;h4 id="parameters-4">Parameters&lt;/h4>
+&lt;dl>
+&lt;dt>model (ModelDesc*)&lt;/dt>
+&lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
+&lt;dt>name (const char*)&lt;/dt>
+&lt;dd>The name of the annotation.&lt;/dd>
+&lt;/dl>
+&lt;h4 id="returns-3">Returns&lt;/h4>
+&lt;dl>
+&lt;dt>const char*&lt;/dt>
+&lt;dd>The value of the specified annotation.&lt;/dd>
+&lt;dt>NULL&lt;/dt>
+&lt;dd>The specified annotation was not found.&lt;/dd>
 &lt;/dl>
 &lt;h3 id="model_step">model_step&lt;/h3>
 &lt;blockquote>
@@ -607,7 +644,7 @@ may specify the &lt;code>ModelVTable.step&lt;/code> method dynamically by mutila
 Model Descriptor in the &lt;code>model_create()&lt;/code> method, or even at runtime.&lt;/p>
 &lt;/blockquote>
 &lt;p>Called by the Model Runtime to step the model for a time interval.&lt;/p>
-&lt;h4 id="parameters-3">Parameters&lt;/h4>
+&lt;h4 id="parameters-5">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>model (ModelDesc*)&lt;/dt>
 &lt;dd>The Model Descriptor object representing an instance of this model.&lt;/dd>
@@ -617,7 +654,7 @@ Model Descriptor in the &lt;code>model_create()&lt;/code> method, or even at run
 &lt;dd>Specifies the stop time for this step of the model. The model step should not
 exceed this time.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-2">Returns&lt;/h4>
+&lt;h4 id="returns-4">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>0&lt;/dt>
 &lt;dd>The step completed without error.&lt;/dd>
@@ -629,7 +666,7 @@ exceed this time.&lt;/dd>
 &lt;/dl>
 &lt;h3 id="signal_annotation">signal_annotation&lt;/h3>
 &lt;p>Get an annotation from a signal definition.&lt;/p>
-&lt;h4 id="parameters-4">Parameters&lt;/h4>
+&lt;h4 id="parameters-6">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>sv (SignalVector*)&lt;/dt>
 &lt;dd>The Signal Vector object containing the signal.&lt;/dd>
@@ -638,7 +675,7 @@ exceed this time.&lt;/dd>
 &lt;dt>name (const char*)&lt;/dt>
 &lt;dd>The name of the annotation.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-3">Returns&lt;/h4>
+&lt;h4 id="returns-5">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>const char*&lt;/dt>
 &lt;dd>The annotation value.&lt;/dd>
@@ -676,7 +713,7 @@ exceed this time.&lt;/dd>
 &lt;h3 id="signal_append">signal_append&lt;/h3>
 &lt;p>Append data to the end of the specified binary signal. The append method will
 resize the buffers of the binary signal as required.&lt;/p>
-&lt;h4 id="parameters-5">Parameters&lt;/h4>
+&lt;h4 id="parameters-7">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>sv (SignalVector*)&lt;/dt>
 &lt;dd>The Signal Vector object containing the signal.&lt;/dd>
@@ -687,7 +724,7 @@ resize the buffers of the binary signal as required.&lt;/p>
 &lt;dt>len (uint32_t)&lt;/dt>
 &lt;dd>Length of the provided data buffer being appended.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-4">Returns&lt;/h4>
+&lt;h4 id="returns-6">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>0&lt;/dt>
 &lt;dd>The operation completed without error.&lt;/dd>
@@ -698,14 +735,14 @@ resize the buffers of the binary signal as required.&lt;/p>
 &lt;p>Return a pointer to the Codec object associated with a binary signal.&lt;/p>
 &lt;p>Codec objects are created when a binary signal is specified with a &lt;code>mime_type&lt;/code>
 annotation.&lt;/p>
-&lt;h4 id="parameters-6">Parameters&lt;/h4>
+&lt;h4 id="parameters-8">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>sv (SignalVector*)&lt;/dt>
 &lt;dd>The Signal Vector object containing the signal.&lt;/dd>
 &lt;dt>index (uint32_t)&lt;/dt>
 &lt;dd>Index of the signal in the Signal Vector object.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-5">Returns&lt;/h4>
+&lt;h4 id="returns-7">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>void*&lt;/dt>
 &lt;dd>The Codec object associated with the binary signal.&lt;/dd>
@@ -729,14 +766,14 @@ annotation.&lt;/p>
 &lt;p>&lt;a href="https://github.com/boschglobal/dse.standards/tree/main/dse/ncodec">Network Codec API&lt;/a>&lt;/p>
 &lt;h3 id="signal_release">signal_release&lt;/h3>
 &lt;p>Release the resources allocated to a binary signal (e.g. free the buffer).&lt;/p>
-&lt;h4 id="parameters-7">Parameters&lt;/h4>
+&lt;h4 id="parameters-9">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>sv (SignalVector*)&lt;/dt>
 &lt;dd>The Signal Vector object containing the signal.&lt;/dd>
 &lt;dt>index (uint32_t)&lt;/dt>
 &lt;dd>Index of the signal in the Signal Vector object.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-6">Returns&lt;/h4>
+&lt;h4 id="returns-8">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>0&lt;/dt>
 &lt;dd>The operation completed without error.&lt;/dd>
@@ -746,14 +783,14 @@ annotation.&lt;/p>
 &lt;h3 id="signal_reset">signal_reset&lt;/h3>
 &lt;p>Reset a binary signal (e.g. sets its buffer length to 0). The buffers of the
 binary signal are not released (see &lt;code>signal_release()&lt;/code>).&lt;/p>
-&lt;h4 id="parameters-8">Parameters&lt;/h4>
+&lt;h4 id="parameters-10">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>sv (SignalVector*)&lt;/dt>
 &lt;dd>The Signal Vector object containing the signal.&lt;/dd>
 &lt;dt>index (uint32_t)&lt;/dt>
 &lt;dd>Index of the signal in the Signal Vector object.&lt;/dd>
 &lt;/dl>
-&lt;h4 id="returns-7">Returns&lt;/h4>
+&lt;h4 id="returns-9">Returns&lt;/h4>
 &lt;dl>
 &lt;dt>0&lt;/dt>
 &lt;dd>The operation completed without error.&lt;/dd>
@@ -832,10 +869,17 @@ which can be used to load, configure and execute a model.&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">ModelInstanceSpec&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span> &lt;span style="color:#000">instance_list&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="functions">Functions&lt;/h2>
+&lt;h3 id="modelc_destroy">modelc_destroy&lt;/h3>
+&lt;p>Bypass the controller and call model_destroy() directly.&lt;/p>
+&lt;h4 id="parameters">Parameters&lt;/h4>
+&lt;p>model_instance : ModelInstanceSpec (pointer to)
+The model instance, which holds references to the registered channels
+and model functions. step_size : double The duration simulation step to be
+performed (in seconds).&lt;/p>
 &lt;h3 id="modelc_step">modelc_step&lt;/h3>
 &lt;p>Execute a simulation step with the provided step size for all model
 functions of the given model instance.&lt;/p>
-&lt;h4 id="parameters">Parameters&lt;/h4>
+&lt;h4 id="parameters-1">Parameters&lt;/h4>
 &lt;p>model_instance : ModelInstanceSpec (pointer to)
 The model instance, which holds references to the registered channels
 and model functions. step_size : double The duration simulation step to be
@@ -1200,11 +1244,15 @@ used by the ModelC.exe).&lt;/p>
 list of arguments).&lt;/dd>
 &lt;/dl>
 &lt;h3 id="simmock_exit">simmock_exit&lt;/h3>
-&lt;p>Call &lt;code>model_exit()&lt;/code> for each model.&lt;/p>
+&lt;p>Call &lt;code>model_destroy()&lt;/code> for each model.&lt;/p>
 &lt;h4 id="parameters-3">Parameters&lt;/h4>
 &lt;dl>
 &lt;dt>mock (SimMock*)&lt;/dt>
 &lt;dd>A SimMock object.&lt;/dd>
+&lt;dt>call_destroy (bool)&lt;/dt>
+&lt;dd>Indicate that model_destroy() should be explicitly called. Set to &lt;code>true&lt;/code> when
+using the SimMock library outside of the ModelC repo (which has its own mock
+object representing the controller).&lt;/dd>
 &lt;/dl>
 &lt;h3 id="simmock_find_model">simmock_find_model&lt;/h3>
 &lt;p>Find a MockModel object contained within a SimMock object.&lt;/p>
@@ -1422,4 +1470,6 @@ binary signal.&lt;/p>
 &lt;dd>Length of the data array.&lt;/dd>
 &lt;dt>frame_id (uint32_t)&lt;/dt>
 &lt;dd>The Frame ID associated with the data.&lt;/dd>
+&lt;dt>frame_type (uint8_t)&lt;/dt>
+&lt;dd>The Frame Type associated with the frame.&lt;/dd>
 &lt;/dl></description></item></channel></rss>
