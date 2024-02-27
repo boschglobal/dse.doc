@@ -1,4 +1,329 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dynamic Simulation Environment – Documentation</title><link>https://boschglobal.github.io/dse.doc/docs/</link><description>Recent content in Documentation on Dynamic Simulation Environment</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://boschglobal.github.io/dse.doc/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Documentation Systems</title><link>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dynamic Simulation Environment – Documentation</title><link>https://boschglobal.github.io/dse.doc/docs/</link><description>Recent content in Documentation on Dynamic Simulation Environment</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://boschglobal.github.io/dse.doc/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Contributions Guide</title><link>https://boschglobal.github.io/dse.doc/docs/devel/contribution/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/devel/contribution/</guid><description>
+&lt;h2 id="synopsis">Synopsis&lt;/h2>
+&lt;p>Developers wishing to contribute, as well as those having no choice in the matter, will find
+this documentation page full of useful information to guide you towards finalising your contribution.&lt;/p>
+&lt;h2 id="contributions">Contributions&lt;/h2>
+&lt;h3 id="checklist">Checklist&lt;/h3>
+&lt;blockquote>
+&lt;p>Hint: This list covers all items that are checked for every contribution. If you write code
+properly, use the automation, and document appropriately &amp;hellip; then the list will already be satisfied.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Notice: Items in bold text are mandatory in all circumstances.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Individual/Small Contributions:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Sign-off from approved contributor. Sign-off implies the following:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>No copy/pasted code&lt;/strong>!&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Approval to contribute (from your organisation/company if required).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Acceptance of existing licence(s) used by the repository.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> No unauthorised IP included with the commit.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> No personal data or images.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> No confidential information.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Concise commits (squash smaller changes).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>Linear history (no merges)&lt;/strong>.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Copyright statement included with new files.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> All items from Code Quality Checks.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>New Dependencies included in Contributions:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Suitability of dependency license for integration with &lt;em>this&lt;/em> repository.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Documentation of dependency license and copyright notices.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Evaluation of dependency risk (especially to project stability).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Archiving of dependency source code (mitigate continuity risk).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> OSS Scan completed.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> All items from Code Quality Checks.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>New Repositories:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Review of architectural concept (as it relates to other repositories).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> License selection for code and documentation.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Approval to create new repository (from your organisation/company if required).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Copyright statement included with new files.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Documentation (including README file).
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> User documentation.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Architectural documentation.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Developer documentation.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Integration with documentation publishing systems (where appropriate).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>Clean history!&lt;/strong> Prior to publishing the repository, the history should be cleaned (i.e. squash to single commit) to remove any intermediate data from the history.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> OSS Scan completed.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Contributor agreement (permission to publish).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> All items from Code Quality Checks.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Code Quality Checks:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> No compile warnings or errors.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> No linter warnings or errors (no circumvention).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>Memory leak checks&lt;/strong> (often enabled in unit test frameworks).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> All tests pass.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Consistent variable naming (with existing code).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Consistent commenting style (with existing code).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Consistent code formatting (with existing code).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Documentation updated, especially generated documentation.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Software Design:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Compatibility - if possible changes &lt;em>should be&lt;/em> backwards compatible.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Platform - avoid precompile flags (i.e. &lt;code>#ifdef/#endif&lt;/code>) for managing platform specific code.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Logic - avoid excessive nesting (i.e. 3+ levels) and complex conditional statements.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Macros - avoid use.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Operational Reviews:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Logging:
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Normal operation produces a minimum of logging, sufficient to describe the configuration of the system in a support ticket, and especially sufficient to identify configuration errors.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Information logging allows normal operation of system (i.e. no debug logging).&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>No logging output during unit tests&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Fault conditions are reported, and where possible, resolution hints are given.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> FIXME items are either resolved or opened as Issues. &lt;strong>No FIXME items should remain in the code&lt;/strong>.&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> TODO items are opened as Issues if appropriate.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="supporting-automation">Supporting Automation&lt;/h3>
+&lt;h4 id="build-system">Build System&lt;/h4>
+&lt;p>Most code quality checks are supported via automation in repositories. These
+same checks will be used by CI systems. Use the automation before submitting PRs.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Clean the build environment.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make clean
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># If you added new dependencies, an additional clean is required.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make cleanall
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Build the software.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Resolve any compiler warnings.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Test the software.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make &lt;span style="color:#204a87">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Resolve any compiler warnings from the test code.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Run static checks.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make super-linter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Generate additional content, especially if documentation or examples were&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># modified as they may/will be used as supplemental documentation content.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make generate
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Remember to commit changes for generated content.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="code-formatting">Code Formatting&lt;/h4>
+&lt;p>Code (C language) can be formatted to the prevailing style with the support of automation.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Setup the code formatting command (you can put this in your .bash_aliases file).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#204a87">export&lt;/span> &lt;span style="color:#000">DSE_CLANG_FORMAT_IMAGE&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>ghcr.io/boschglobal/dse-clang-format:main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#204a87">alias&lt;/span> dse-clang-format&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#39;docker run --rm -it --volume $(pwd):/tmp/code ${DSE_CLANG_FORMAT_IMAGE}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Format a source file.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ dse-clang-format dse/modelc/gateway.h
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="platform-specific-code">Platform Specific Code&lt;/h3>
+&lt;p>As much as possible please avoid platform specific code, and in particular the use of &lt;code>#ifdef/#endif&lt;/code> as
+these make software particularly difficult to maintain and understand.&lt;/p>
+&lt;p>When using platform specific code becomes necessary, please use of of the following design patterns:&lt;/p>
+&lt;h4 id="use-the-existing-platformh">Use the existing &amp;lt;platform.h&amp;gt;&lt;/h4>
+&lt;p>The DSE C Library includes a header file for managing smaller platform specific issues.
+&lt;a href="https://github.com/boschglobal/dse.clib/blob/main/dse/platform.h">https://github.com/boschglobal/dse.clib/blob/main/dse/platform.h&lt;/a>&lt;/p>
+&lt;h4 id="use-the-linker">Use the Linker&lt;/h4>
+&lt;p>Use the linker to switch between code files containing the platform specific implementations, and if
+necessary describe the interface of those implementations with a header file. Not only does this
+technique remove the need for &lt;em>any&lt;/em> &lt;code>#ifdef/#endif&lt;/code> in your code, it will also likely make
+the underlying design more robust, easy to test &amp;hellip; and faster to compile.&lt;/p>
+&lt;p>The DSE Model C Library uses this technique in its Message Queue implementation:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cmake" data-lang="cmake">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87">add_library&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">adapter&lt;/span> &lt;span style="color:#4e9a06">OBJECT&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#4e9a06">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">$&amp;lt;&lt;/span>&lt;span style="color:#000">$&amp;lt;BOOL:${UNIX}&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;gt;&lt;/span>&lt;span style="color:#4e9a06">:transport/mq_posix.c&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#4e9a06">...&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>and associated source code:
+&lt;a href="https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/adapter/transport/mq_posix.c">https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/adapter/transport/mq_posix.c&lt;/a>&lt;/p>
+&lt;h3 id="oss-compliance-items">OSS Compliance Items&lt;/h3>
+&lt;h4 id="establishing-a-mirror">Establishing a Mirror&lt;/h4>
+&lt;p>A mirroring strategy for dependences can be largely automated using GitHub actions. The following
+represents such an implementation:&lt;/p>
+&lt;details>
+&lt;summary>mirror.yaml (workflow)&lt;/summary>
+name: OSS Mirrors
+on:
+workflow_dispatch:
+schedule:
+- cron: 0 10 * * 0
+jobs:
+build:
+runs-on: [fsil-bpc]
+strategy:
+matrix:
+# List each pair of source/target repos to be mirrored.
+include:
+- source: "https://github.com/redis/hiredis"
+target: "fsil-oss-mirrors/hiredis.git"
+branch: "master"
+&lt;pre>&lt;code> - source: &amp;quot;https://github.com/libevent/libevent&amp;quot;
+target: &amp;quot;fsil-oss-mirrors/libevent.git&amp;quot;
+branch: &amp;quot;master&amp;quot;
+- source: &amp;quot;https://github.com/yaml/libyaml&amp;quot;
+target: &amp;quot;fsil-oss-mirrors/libyaml.git&amp;quot;
+branch: &amp;quot;master&amp;quot;
+- source: &amp;quot;https://github.com/msgpack/msgpack-c&amp;quot;
+target: &amp;quot;fsil-oss-mirrors/msgpack-c.git&amp;quot;
+branch: &amp;quot;c_master&amp;quot;
+- source: &amp;quot;https://gitlab.com/cmocka/cmocka&amp;quot;
+target: &amp;quot;fsil-oss-mirrors/cmocka.git&amp;quot;
+branch: &amp;quot;master&amp;quot;
+- source: &amp;quot;https://github.com/dlfcn-win32/dlfcn-win32&amp;quot;
+target: &amp;quot;fsil-oss-mirrors/dlfcn-win32.git&amp;quot;
+branch: &amp;quot;master&amp;quot;
+steps:
+- name: git-sync branch
+uses: wei/git-sync@v3
+with:
+source_repo: ${{ matrix.source }}
+source_branch: ${{ matrix.branch }}
+destination_branch: ${{ matrix.branch }}
+destination_repo: &amp;quot;https://${{ secrets.GHE_USER }}:${{ secrets.GHE_TOKEN }}@github.boschdevcloud.com/${{ matrix.target }}&amp;quot;
+- name: git-sync tags
+uses: wei/git-sync@v3
+with:
+source_repo: ${{ matrix.source }}
+source_branch: &amp;quot;refs/tags/*&amp;quot;
+destination_branch: &amp;quot;refs/tags/*&amp;quot;
+destination_repo: &amp;quot;https://${{ secrets.GHE_USER }}:${{ secrets.GHE_TOKEN }}@github.boschdevcloud.com/${{ matrix.target }}&amp;quot;
+&lt;/code>&lt;/pre>
+&lt;/details>
+&lt;h4 id="configuration-for-scans">Configuration for SCANS&lt;/h4>
+&lt;p>Projects will include an automation to assist in the generation of OSS Scan Packages. These OSS Scan Packages
+include the source from all dependences and may be used to run OSS Compliance Scans.&lt;/p>
+&lt;blockquote>
+&lt;p>Important: If you are adding a new dependency to a repository, please ensure that it is also added to the
+automation which generates OSS Scan Packages.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Generate the OSS Scan Package.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ make oss
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Evaluate the OSS Scan Package content (e.g check for your new dependency).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls dse/__oss__/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dlfcnwin32/ dse.clib/ dse_ncodec/ event/ hiredis/ msgpackc/ yaml/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="documentation-of-license-and-notices">Documentation of License (and notices)&lt;/h4>
+&lt;p>Dependency&amp;rsquo;s of a repository need to have their license and associated notices
+documented. The easiest way to achieve that is to simply copy each artifact into
+a &lt;code>licenses&lt;/code> directory.&lt;/p>
+&lt;blockquote>
+&lt;p>Important: All transitive dependencies need to be documented.&lt;/p>
+&lt;/blockquote>
+&lt;pre tabindex="0">&lt;code>licenses/
+└── barrust/
+└── LICENSE &amp;lt;-- Code directly included in repo.
+└── dlfcnwin32/
+└── COPYING
+└── dse.clib/
+└── NOTICE
+└── LICENSE
+└── dse_ncodec/
+└── LICENSE
+└── NOTICE
+└── event/
+└── LICENSE
+└── flatbuffers/ &amp;lt;-- Transitive dependency.
+└── LICENSE.txt
+└── flatcc/ &amp;lt;-- Transitive dependency.
+└── LICENSE
+└── NOTICE
+└── hiredis/
+└── COPYING
+└── msgpackc/
+└── LICENSE_1_0.txt
+└── NOTICE
+└── yaml/
+└── License
+&lt;/code>&lt;/pre>&lt;h2 id="git-commands">Git Commands&lt;/h2>
+&lt;h3 id="setup-and-configure-git">Setup and Configure Git&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Set user name and email (for signoff).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global --add user.name &lt;span style="color:#4e9a06">&amp;#34;User Name (dept)&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global --add user.email &lt;span style="color:#4e9a06">&amp;#34;user.name@de.bosch.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="working-with-commits">Working with Commits&lt;/h3>
+&lt;h4 id="sign-off">Sign Off&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Add a signoff to a commit.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit -s -m &lt;span style="color:#4e9a06">&amp;#34;Commit message.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Append a signoff to an existing commit.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit --amend -s --no-edit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Add signoff to several commits.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git rebase --signoff HEAD~3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="cherry-pick">Cherry-Pick&lt;/h4>
+&lt;p>Particularly useful when recovering from mistakes, or where you simply need to
+get a commit onto your branch.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Cherry pick between branches.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout --track origin/devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout foo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git cherry-pick a253c6359aa85da5627caf2f746282ac0e53cea1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="working-with-prs">Working with PRs&lt;/h3>
+&lt;h4 id="modify-an-existing-pr-on-the-requester-forkbranch">Modify an existing PR on the requester fork/branch.&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Update local devel branch (push local changes prior).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git remote -v
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>origin https://github.boschdevcloud.com/fsil/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>fetch&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>origin https://github.boschdevcloud.com/fsil/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>push&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git switch origin/devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git pull --rebase &lt;span style="color:#8f5902;font-style:italic"># Ensure you have no local commits at this point.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Create a new branch and pull in the PR (no merge).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git switch -c USER-PR-BRANCH origin/devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git pull https://github.boschdevcloud.com/USER/dse.modelc.git PR-BRANCH --rebase
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Edit and commit changes.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit -m&lt;span style="color:#4e9a06">&amp;#34;Fix PR issue.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic"># Push back to the PR (and delete the local branch).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push https://github.boschdevcloud.com/USER/dse.modelc.git HEAD:PR-BRANCH
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git switch devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git branch -D USER-PR-BRANCH devel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="working-with-remotes">Working with Remotes&lt;/h3>
+&lt;h4 id="setup-for-oss-contributions">Setup for OSS Contributions&lt;/h4>
+&lt;p>When working directly with OSS repos it is helpful to maintain a clear set
+of remotes (and avoid mistakes). The following example shows one approach:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Add the origin remote as the development mirror (using clone).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git clone https://github.boschdevcloud.com/fsil/dse.modelc.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Add the upstream remote as the OSS repo.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git remote add upstream https://github.com/boschglobal/some.repo.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git fetch upstream main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git fetch upstream main --tags
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Add a fsil.fork remote for your own PRs.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git remote add fsil.fork https://github.com/boschglobal/some.repo.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git fetch fsil.fork
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git switch fsil.fork/PR-BRANCH
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Review the remote setup.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git remote -v
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fsil.fork https://github.boschdevcloud.com/USER/fsil.dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>fetch&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fsil.fork https://github.boschdevcloud.com/USER/fsil.dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>push&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>origin https://github.boschdevcloud.com/fsil/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>fetch&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>origin https://github.boschdevcloud.com/fsil/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>push&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>upstream https://github.com/boschglobal/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>fetch&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>upstream https://github.com/boschglobal/dse.modelc.git &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>push&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="pushing-to-oss-remotes">Pushing to OSS Remotes&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Pull in upstream changes (avoid merge).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git branch
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>* devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pull upstream main --rebase
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Push changes from &amp;#39;devel&amp;#39; to &amp;#39;main&amp;#39;.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push upstream devel:main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"># Alternative, push from the current HEAD location to &amp;#39;main&amp;#39;.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push upstream HEAD:main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Documentation Systems</title><link>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://boschglobal.github.io/dse.doc/docs/devel/documentation/</guid><description>
 &lt;p>The documentation system is built by pulling content from individual Git Repos into
 a Hugo/Docsy project. The Hugo build system then consolidates that content into
 a single documentation system which is then published.&lt;/p>
