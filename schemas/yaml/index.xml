@@ -1368,17 +1368,17 @@ The remote system may be a different type of simulation environment.&lt;/p>
 &lt;tbody>
 &lt;tr>
 &lt;td>messages&lt;/td>
-&lt;td>[&lt;a href="#schemamessage">Message&lt;/a>]&lt;/td>
+&lt;td>[&lt;a href="#schemanetworkmessage">NetworkMessage&lt;/a>]&lt;/td>
 &lt;td>true&lt;/td>
 &lt;td>A list of messages belonging to this Network.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="tocS_Message">Message&lt;/h2>
-&lt;p>&lt;a id="schemamessage">&lt;/a>
-&lt;a id="schema_Message">&lt;/a>
-&lt;a id="tocSmessage">&lt;/a>
-&lt;a id="tocsmessage">&lt;/a>&lt;/p>
+&lt;h2 id="tocS_NetworkMessage">NetworkMessage&lt;/h2>
+&lt;p>&lt;a id="schemanetworkmessage">&lt;/a>
+&lt;a id="schema_NetworkMessage">&lt;/a>
+&lt;a id="tocSnetworkmessage">&lt;/a>
+&lt;a id="tocsnetworkmessage">&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">message&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#000">systemStatus&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">annotations&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">struct_name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#000">CAN1_systemStatus_t&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -1470,21 +1470,9 @@ The remote system may be a different type of simulation environment.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td>functions&lt;/td>
-&lt;td>object&lt;/td>
+&lt;td>&lt;a href="#schemanetworkfunctions">NetworkFunctions&lt;/a>&lt;/td>
 &lt;td>false&lt;/td>
 &lt;td>Message functions to be applied to this message.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>» encode&lt;/td>
-&lt;td>[&lt;a href="#schemafunction">Function&lt;/a>]&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>Message functions applied to the encode processing path (i.e. from Signal to Network interface). Functions are implicitly applied in the order of definition.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>» decode&lt;/td>
-&lt;td>[&lt;a href="#schemafunction">Function&lt;/a>]&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>Message functions applied to the decode processing path (i.e. from Network to Signal interface). Functions are implicitly applied in the order of definition.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1545,22 +1533,60 @@ The remote system may be a different type of simulation environment.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td>annotations&lt;/td>
-&lt;td>&lt;a href="#schemamessage/properties/annotations">Message/properties/annotations&lt;/a>&lt;/td>
+&lt;td>&lt;a href="#schemanetworkmessage/properties/annotations">NetworkMessage/properties/annotations&lt;/a>&lt;/td>
 &lt;td>false&lt;/td>
 &lt;td>Non identifying information (i.e. information specific to the object itself).&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="tocS_Function">Function&lt;/h2>
-&lt;p>&lt;a id="schemafunction">&lt;/a>
-&lt;a id="schema_Function">&lt;/a>
-&lt;a id="tocSfunction">&lt;/a>
-&lt;a id="tocsfunction">&lt;/a>&lt;/p>
+&lt;h2 id="tocS_NetworkFunctions">NetworkFunctions&lt;/h2>
+&lt;p>&lt;a id="schemanetworkfunctions">&lt;/a>
+&lt;a id="schema_NetworkFunctions">&lt;/a>
+&lt;a id="tocSnetworkfunctions">&lt;/a>
+&lt;a id="tocsnetworkfunctions">&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">encode&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#8f5902;font-style:italic">&amp;amp;a1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">function&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#000">crc_generate&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">annotations&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">position&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">decode&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#8f5902;font-style:italic">*a1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Message functions to be applied to this message.&lt;/p>
+&lt;h3 id="properties-4">Properties&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Required&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>encode&lt;/td>
+&lt;td>[&lt;a href="#schemanetworkfunction">NetworkFunction&lt;/a>]&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>Message functions applied to the encode processing path (i.e. from Signal to Network interface). Functions are implicitly applied in the order of definition.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>decode&lt;/td>
+&lt;td>[&lt;a href="#schemanetworkfunction">NetworkFunction&lt;/a>]&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>Message functions applied to the decode processing path (i.e. from Network to Signal interface). Functions are implicitly applied in the order of definition.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="tocS_NetworkFunction">NetworkFunction&lt;/h2>
+&lt;p>&lt;a id="schemanetworkfunction">&lt;/a>
+&lt;a id="schema_NetworkFunction">&lt;/a>
+&lt;a id="tocSnetworkfunction">&lt;/a>
+&lt;a id="tocsnetworkfunction">&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">function&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#000">crc_generate&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">annotations&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">position&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#0000cf;font-weight:bold">0&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A Network Function definition.&lt;/p>
-&lt;h3 id="properties-4">Properties&lt;/h3>
+&lt;h3 id="properties-5">Properties&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -1579,7 +1605,7 @@ The remote system may be a different type of simulation environment.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td>annotations&lt;/td>
-&lt;td>&lt;a href="#schemamessage/properties/annotations">Message/properties/annotations&lt;/a>&lt;/td>
+&lt;td>&lt;a href="#schemanetworkmessage/properties/annotations">NetworkMessage/properties/annotations&lt;/a>&lt;/td>
 &lt;td>false&lt;/td>
 &lt;td>Non identifying information (i.e. information specific to the object itself).&lt;/td>
 &lt;/tr>
