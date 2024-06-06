@@ -11,6 +11,122 @@ Developers wishing to contribute, as well as those having no choice in the matte
 this documentation page full of useful information to guide you towards finalising your contribution.
 
 
+## Git Commands
+
+### Setup and Configure Git
+
+```bash
+# Set user name and email (for signoff).
+git config --global --add user.name "User Name (dept)"
+git config --global --add user.email "user.name@de.bosch.com"
+```
+
+
+### Working with Commits
+
+#### Sign Off
+
+```bash
+# Add a signoff to a commit.
+git commit -s -m "Commit message."
+
+# Append a signoff to an existing commit.
+git commit --amend -s --no-edit
+
+# Add signoff to several commits.
+git rebase --signoff HEAD~3
+```
+
+
+#### Cherry-Pick
+
+Particularly useful when recovering from mistakes, or where you simply need to
+get a commit onto your branch.
+
+```bash
+# Cherry pick between branches.
+git checkout --track origin/devel
+git checkout foo
+git cherry-pick a253c6359aa85da5627caf2f746282ac0e53cea1
+```
+
+
+### Working with PRs
+
+#### Modify an existing PR on the requester fork/branch.
+
+```bash
+# Update local devel branch (push local changes prior).
+$ git remote -v
+origin  https://github.boschdevcloud.com/fsil/dse.modelc.git (fetch)
+origin  https://github.boschdevcloud.com/fsil/dse.modelc.git (push)
+$ git switch origin/devel
+$ git pull --rebase    # Ensure you have no local commits at this point.
+
+# Create a new branch and pull in the PR (no merge).
+git switch -c USER-PR-BRANCH origin/devel
+git pull https://github.boschdevcloud.com/USER/dse.modelc.git PR-BRANCH --rebase
+
+# Edit and commit changes.
+git commit -m"Fix PR issue."
+
+ # Push back to the PR (and delete the local branch).
+git push https://github.boschdevcloud.com/USER/dse.modelc.git HEAD:PR-BRANCH
+git switch devel
+git branch -D USER-PR-BRANCH devel
+```
+
+
+### Working with Remotes
+
+#### Setup for OSS Contributions
+
+When working directly with OSS repos it is helpful to maintain a clear set
+of remotes (and avoid mistakes). The following example shows one approach:
+
+
+```bash
+# Add the origin remote as the development mirror (using clone).
+$ git clone https://github.boschdevcloud.com/fsil/dse.modelc.git
+
+# Add the upstream remote as the OSS repo.
+git remote add upstream https://github.com/boschglobal/some.repo.git
+git fetch upstream main
+git fetch upstream main --tags
+
+# Add a fsil.fork remote for your own PRs.
+git remote add fsil.fork https://github.com/boschglobal/some.repo.git
+git fetch fsil.fork
+git switch fsil.fork/PR-BRANCH
+
+# Review the remote setup.
+$ git remote -v
+fsil.fork       https://github.boschdevcloud.com/USER/fsil.dse.modelc.git (fetch)
+fsil.fork       https://github.boschdevcloud.com/USER/fsil.dse.modelc.git (push)
+origin          https://github.boschdevcloud.com/fsil/dse.modelc.git (fetch)
+origin          https://github.boschdevcloud.com/fsil/dse.modelc.git (push)
+upstream        https://github.com/boschglobal/dse.modelc.git (fetch)
+upstream        https://github.com/boschglobal/dse.modelc.git (push)
+```
+
+
+#### Pushing to OSS Remotes
+
+```bash
+# Pull in upstream changes (avoid merge).
+$ git branch
+* devel
+  main
+$ pull upstream main --rebase
+
+# Push changes from 'devel' to 'main'.
+git push upstream devel:main
+
+# Alternative, push from the current HEAD location to 'main'.
+git push upstream HEAD:main
+```
+
+
 ## Contributions
 
 ### Checklist
@@ -277,120 +393,4 @@ licenses/
     └── NOTICE
 └── yaml/
     └── License
-```
-
-
-## Git Commands
-
-### Setup and Configure Git
-
-```bash
-# Set user name and email (for signoff).
-git config --global --add user.name "User Name (dept)"
-git config --global --add user.email "user.name@de.bosch.com"
-```
-
-
-### Working with Commits
-
-#### Sign Off
-
-```bash
-# Add a signoff to a commit.
-git commit -s -m "Commit message."
-
-# Append a signoff to an existing commit.
-git commit --amend -s --no-edit
-
-# Add signoff to several commits.
-git rebase --signoff HEAD~3
-```
-
-
-#### Cherry-Pick
-
-Particularly useful when recovering from mistakes, or where you simply need to
-get a commit onto your branch.
-
-```bash
-# Cherry pick between branches.
-git checkout --track origin/devel
-git checkout foo
-git cherry-pick a253c6359aa85da5627caf2f746282ac0e53cea1
-```
-
-
-### Working with PRs
-
-#### Modify an existing PR on the requester fork/branch.
-
-```bash
-# Update local devel branch (push local changes prior).
-$ git remote -v
-origin  https://github.boschdevcloud.com/fsil/dse.modelc.git (fetch)
-origin  https://github.boschdevcloud.com/fsil/dse.modelc.git (push)
-$ git switch origin/devel
-$ git pull --rebase    # Ensure you have no local commits at this point.
-
-# Create a new branch and pull in the PR (no merge).
-git switch -c USER-PR-BRANCH origin/devel
-git pull https://github.boschdevcloud.com/USER/dse.modelc.git PR-BRANCH --rebase
-
-# Edit and commit changes.
-git commit -m"Fix PR issue."
-
- # Push back to the PR (and delete the local branch).
-git push https://github.boschdevcloud.com/USER/dse.modelc.git HEAD:PR-BRANCH
-git switch devel
-git branch -D USER-PR-BRANCH devel
-```
-
-
-### Working with Remotes
-
-#### Setup for OSS Contributions
-
-When working directly with OSS repos it is helpful to maintain a clear set
-of remotes (and avoid mistakes). The following example shows one approach:
-
-
-```bash
-# Add the origin remote as the development mirror (using clone).
-$ git clone https://github.boschdevcloud.com/fsil/dse.modelc.git
-
-# Add the upstream remote as the OSS repo.
-git remote add upstream https://github.com/boschglobal/some.repo.git
-git fetch upstream main
-git fetch upstream main --tags
-
-# Add a fsil.fork remote for your own PRs.
-git remote add fsil.fork https://github.com/boschglobal/some.repo.git
-git fetch fsil.fork
-git switch fsil.fork/PR-BRANCH
-
-# Review the remote setup.
-$ git remote -v
-fsil.fork       https://github.boschdevcloud.com/USER/fsil.dse.modelc.git (fetch)
-fsil.fork       https://github.boschdevcloud.com/USER/fsil.dse.modelc.git (push)
-origin          https://github.boschdevcloud.com/fsil/dse.modelc.git (fetch)
-origin          https://github.boschdevcloud.com/fsil/dse.modelc.git (push)
-upstream        https://github.com/boschglobal/dse.modelc.git (fetch)
-upstream        https://github.com/boschglobal/dse.modelc.git (push)
-```
-
-
-#### Pushing to OSS Remotes
-
-```bash
-# Pull in upstream changes (avoid merge).
-$ git branch
-* devel
-  main
-$ pull upstream main --rebase
-
-# Push changes from 'devel' to 'main'.
-git push upstream devel:main
-
-# Alternative, push from the current HEAD location to 'main'.
-git push upstream HEAD:main
 ```
