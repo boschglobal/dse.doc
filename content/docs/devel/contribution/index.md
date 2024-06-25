@@ -97,7 +97,7 @@ git fetch upstream main --tags
 # Add a fsil.fork remote for your own PRs.
 git remote add fsil.fork https://github.com/boschglobal/some.repo.git
 git fetch fsil.fork
-git switch fsil.fork/PR-BRANCH
+git switch -c PR-BRANCH fsil.fork/main
 
 # Review the remote setup.
 $ git remote -v
