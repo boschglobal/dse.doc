@@ -53,6 +53,22 @@ git cherry-pick a253c6359aa85da5627caf2f746282ac0e53cea1
 
 ### Working with PRs
 
+#### Rebase a PR and push to requesters branch.
+
+```bash
+# Checkout the PR locally.
+git fetch origin pull/86/head:PR-BRANCH
+git checkout PR-BRANCH
+
+# Rebase the PR and resolve any conflicts.
+git pull --rebase upstream main
+
+# Push the PR back to the originatory fork/branch (force if necessary).
+git push https://github.boschdevcloud.com/PR-USER/dse.modelc.git HEAD:devel
+git push https://github.boschdevcloud.com/PR-USER/dse.modelc.git HEAD:devel --force
+```
+
+
 #### Modify an existing PR on the requester fork/branch.
 
 ```bash
