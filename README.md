@@ -47,6 +47,10 @@ $ export DOC_CDOCGEN_IMAGE=ghcr.io/boschglobal/dse-cdocgen:main
 ### Build
 
 ```bash
+# Install hugo.
+$ sudo snap install hugo
+
+# Clone the repo.
 $ git clone https://github.com/boschglobal/dse.doc.git
 $ cd dse.doc
 
