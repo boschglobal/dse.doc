@@ -33,6 +33,7 @@ tools can be built as follows:
 $ git clone https://github.com/boschglobal/dse.doc.git
 $ cd dse.doc
 $ make tools
+$ make docker
 ```
 
 Alternatively, the latest Docker Images are available on ghcr.io and can be
