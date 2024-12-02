@@ -82,7 +82,7 @@ offlineSearch = true
 # User interface configuration
 [params.ui]
 breadcrumb_disable = false
-footer_about_disable = true
+footer_about_enable = false
 navbar_logo = true
 navbar_translucent_over_cover_disable = true
 
