@@ -68,6 +68,42 @@ git push https://github.boschdevcloud.com/PR-USER/dse.modelc.git HEAD:devel
 git push https://github.boschdevcloud.com/PR-USER/dse.modelc.git HEAD:devel --force
 ```
 
+#### Squash a PR locally
+
+```bash
+# Checkout the PR locally.
+git fetch origin pull/86/head:PR-BRANCH
+git checkout PR-BRANCH
+
+# Soft reset to the commit (SHA) _prior_ to the PR commits
+$ git log --oneline
+$ git reset --soft 5df673c
+$ git commit -am "MDF API implementation."
+$ git commit --amend --author="" --no-edit
+
+# Rebase the PR and squash in any edits.
+$ git add .
+$ git commit --amend --no-adit
+$ git pull --rebase upstream main
+# or
+$ git pull --rebase origin devel
+
+# Set the author.
+git commit --amend --author="John Doe (VM/EMT3) <John.Doe@de.bosch.com>" --no-edit
+
+# Fix any issues, dd a signoff, merge to main/devel branch.
+$ git commit --amend -s --no-edit
+$ git checkout main
+# or
+$ git checkout devel
+$ git pull . PR-MDF --rebase
+
+# Push the PR back to the originatory fork/branch.
+$ git push upstream HEAD:main
+# and/or
+$ git push origin HEAD:devel
+```
+
 
 #### Modify an existing PR on the requester fork/branch.
 
