@@ -1,5 +1,5 @@
-github.boschdevcloud.com/fsil/fsil.go/ast v1.0.0 h1:gIZH8c5e3vFGcFhB1FCW+rkKVfaamc0I9F19WnXkBFY=
-github.boschdevcloud.com/fsil/fsil.go/ast v1.0.0/go.mod h1:sSukG1UeaqM8vQJzCQKhVJb54kyj4Sd8xXyDgHBaxsQ=
+github.boschdevcloud.com/fsil/fsil.go/ast v1.0.4 h1:PTqNhX0kX9qr4KKk3StrAJ8u02nh7GdLQo0BXyIO0xw=
+github.boschdevcloud.com/fsil/fsil.go/ast v1.0.4/go.mod h1:sSukG1UeaqM8vQJzCQKhVJb54kyj4Sd8xXyDgHBaxsQ=
 github.com/ghodss/yaml v1.0.0 h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
