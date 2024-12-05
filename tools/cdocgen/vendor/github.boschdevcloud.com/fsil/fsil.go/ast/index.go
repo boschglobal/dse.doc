@@ -7,5 +7,12 @@ package ast
 
 type Index struct {
 	Functions []string
-	Typedefs  map[string][]string
+	Typedefs  map[string][]IndexMemberDecl
+	Structs   map[string][]IndexMemberDecl
+}
+
+type IndexMemberDecl struct {
+	Name                   string
+	TypeName               string
+	AnonymousStructMembers []IndexMemberDecl
 }

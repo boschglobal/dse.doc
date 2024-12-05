@@ -267,11 +267,7 @@ func (mddoc *Mddoc) Generate(path string) error {
 		if len(variables) > 0 {
 			doc += "```c\n"
 			doc += fmt.Sprintf("typedef struct %s {\n", typedef)
-			for _, name := range variables {
-				name = strings.Replace(name, " * ", "* ", 1)
-				name = strings.Replace(name, " ** ", "** ", 1)
-				doc += fmt.Sprintf("    %s;\n", name)
-			}
+			doc += generateStructBody(variables, "    ")
 			doc += "}\n"
 			doc += "```\n\n"
 		}
@@ -311,4 +307,40 @@ func (mddoc *Mddoc) Generate(path string) error {
 	}
 	fmt.Printf("Content saved to %s\n", path)
 	return nil
+}
+
+func generateStructBody(variables []ast.IndexMemberDecl, indent string) string {
+	doc := ""
+
+	for i := 0; i < len(variables); i++ {
+		variable := variables[i]
+
+		if variable.TypeName == "struct" && variable.Name == "" && len(variable.AnonymousStructMembers) > 0 {
+			// Anonymous struct detected
+			doc += fmt.Sprintf("%sstruct {\n", indent)
+			doc += generateStructBody(variable.AnonymousStructMembers, indent+"    ")
+			doc += fmt.Sprintf("%s}", indent)
+
+			// Check if the next variable provides the name for this anonymous struct
+			if i+1 < len(variables) {
+				nextVariable := variables[i+1]
+				if nextVariable.Name != "" {
+					doc += fmt.Sprintf(" %s;\n", nextVariable.Name)
+					i++ // Skip the next variable
+				} else {
+					doc += ";\n"
+				}
+			} else {
+				doc += ";\n"
+			}
+		} else {
+			// Regular variable
+			name := variable.TypeName + " " + variable.Name
+			name = strings.Replace(name, " * ", "* ", 1)
+			name = strings.Replace(name, " ** ", "** ", 1)
+			doc += fmt.Sprintf("%s%s;\n", indent, name)
+		}
+	}
+
+	return doc
 }
