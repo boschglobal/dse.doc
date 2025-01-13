@@ -3,20 +3,18 @@ name: Public HTML
 on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
-    branches: [main, devel]
-    tags:
-      - 'v*.*.*'
+    branches: [main]
   pull_request:
-    branches: [main, devel]
-#  schedule:
-#    - cron: '0 6,12,16 * * *'
+    branches: [main]
+  schedule:
+    - cron: '0 6,12 * * *'
 jobs:
   deploy:
     runs-on: [ubuntu-latest]
     container:
       image: ghcr.io/boschglobal/dse-docsy-builder:main
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
