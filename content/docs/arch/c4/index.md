@@ -1,9 +1,9 @@
 ---
 title: "C4 Architecture Diagrams"
 linkTitle: "C4 Diagrams"
-cascade:
-  - type: "docs"
 weight: 10
+tags:
+  - Architecture
 ---
 
 
