@@ -5,3 +5,8 @@ main
 /public
 go.work
 .hugo_build.lock
+
+.structurizr
+content/docs/arch/c4/structurizr/export
+content/docs/arch/c4/structurizr/*.json
+hsperfdata_root
