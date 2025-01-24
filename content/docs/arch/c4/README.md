@@ -1,7 +1,8 @@
-# Copyright 2023 Robert Bosch GmbH
-#
-# SPDX-License-Identifier: Apache-2.0
+<!--
+Copyright 2025 Robert Bosch GmbH
 
+SPDX-License-Identifier: Apache-2.0
+-->
 
 ## Structurizr Lite Webserver
 
