@@ -9,6 +9,7 @@ require (
 	github.com/boschglobal/dse.modelc main // indirect
 	github.com/boschglobal/dse.network main // indirect
 	github.com/boschglobal/dse.schemas main // indirect
+	github.com/boschglobal/dse.sdp main // indirect
 	github.com/boschglobal/dse.standards main // indirect
 	github.com/google/docsy v0.11.0 // indirect
 	github.com/google/docsy/dependencies v0.7.2 // indirect
