@@ -10,7 +10,7 @@ on:  # yamllint disable-line rule:truthy
     - cron: '0 6,12 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: read
   packages: write
 
