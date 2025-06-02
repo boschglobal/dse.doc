@@ -15,6 +15,7 @@ require (
 	github.com/boschglobal/dse.modelc main // indirect
 	github.com/boschglobal/dse.network main // indirect
 	github.com/boschglobal/dse.schemas main // indirect
+	github.com/boschglobal/dse.sdp main  // indirect
 	github.com/boschglobal/dse.standards main // indirect
 	github.com/FortAwesome/Font-Awesome v0.0.0-20240716171331-37eff7fa00de // indirect
 	github.com/google/docsy v0.11.0 // indirect
