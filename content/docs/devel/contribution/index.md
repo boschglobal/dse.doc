@@ -265,9 +265,9 @@ jobs:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 ```
 
-####
+#### .github/workflows/super_linter.yaml
 
-Make sure to adjust your super-linter checkout to match this snippet:
+> Hint: Make sure to adjust your super-linter checkout to match this snippet:
 
 ```yaml
 ---
@@ -280,7 +280,7 @@ jobs:
     name: Lint Code Base
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@vX
         with:
           fetch-depth: 0
 ...
