@@ -179,6 +179,114 @@ git push upstream HEAD:main
 ```
 
 
+## GitHub
+
+### Dependabot Auto Merge
+
+Setup your GitHub Repo for Dependabot:
+
+1. Settings -> General -> Pull Requests -> Allow auto-merge [select]
+2. Rules -> Ruleset -> [New branch ruleset] ->
+    1. Ruleset Name : default (or main)
+    2. Bypass list : Repository admin & Maintain roles
+    3. Target branches : default (or main)
+    4. Rules : Require status checks to pass (these are workflow names)
+        - Lint Code Base
+        - build (linux-amd64)
+        - test_go
+    5. [Create]
+    6. Enforcement status -> [Active] -> [Save changes]
+3. Issues -> Labels -> New Label -> add "automerge", "dependabot"
+
+
+Add the following files to configure Dependabot and add an Auto-Merge workflow.
+
+#### .github/dependabot.yml
+```yaml
+---
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directories:
+      - "**/*"
+    schedule:
+      interval: "daily"
+    groups:
+      gomod-automerge:
+        update-types:
+          - "patch"
+          - "minor"
+    labels:
+      - "automerge"
+      - "dependabot"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      actions-merge:
+        update-types:
+          - "patch"
+          - "minor"
+          - "major"
+    labels:
+      - "dependabot"
+```
+
+#### .github/workflows/dependabot.yaml
+
+> Hint:  Make sure to match `github.repository` to your repo name.
+
+```yaml
+---
+name: Dependabot auto-merge
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'boschglobal/REPO_NAME'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Enable auto-merge for Dependabot PRs
+        if: contains(github.event.pull_request.labels.*.name, 'automerge') && (steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor')
+        run: gh pr merge --squash --auto "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+```
+
+####
+
+Make sure to adjust your super-linter checkout to match this snippet:
+
+```yaml
+---
+name: Super Linter
+
+...
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+...
+```
+
+
 ## Contributions
 
 ### Checklist
