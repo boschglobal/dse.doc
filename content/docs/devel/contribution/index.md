@@ -287,6 +287,55 @@ jobs:
 ```
 
 
+## Maintain a Stable Fork
+
+Maintain a Stable Fork with the following references:
+* fork (branch): Sync with upstream repo. This branch represents the fork.
+* stable (tag): Reference for the stable forked repo.
+* PR/* (branch): PR branches, each based from 'stable'.
+* main (branch): The operational branch, based on 'stable', and including
+  commits from the PR branches.
+
+### Update the stable reference
+
+```bash
+$ git fetch --tags upstream
+$ git checkout v3.43.3
+$ git tag -f stable
+```
+
+### Rebase PR Branches
+
+```bash
+$ git branch --list PR/*
+$ git checkout PR/requires_check_nil
+$ git rebase stable
+# Repeat for each PR ... correct errors as they occur.
+```
+
+### Rebuild the "main" branch
+
+```bash
+$ git checkout stable
+$ git switch -C main
+$ git pull . PR/requires_check_nil
+# Repeat for each PR ...
+```
+
+### Update the Fork/Origin
+
+```bash
+$ git push origin stable -f
+$ git push origin main -f
+$ git push origin PR/requires_check_nil -f
+# Repeat for each PR ...
+
+# Tag latest.
+$ git tag -f latest
+$ git push origin latest -f
+```
+
+
 ## Contributions
 
 ### Checklist
