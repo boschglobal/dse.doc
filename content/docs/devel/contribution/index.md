@@ -320,6 +320,16 @@ $ git checkout stable
 $ git switch -C main
 $ git pull . PR/requires_check_nil
 # Repeat for each PR ...
+
+# Update module URLs.
+find . -name '*.go' | xargs sed -i 's,github.com/go-task/task,github.com/boschglobal/task,g'
+find . -name 'go.mod' | xargs sed -i 's,github.com/go-task/task,github.com/boschglobal/task,g'
+$ git add .
+$ git commit -s -m"Update module URLs."
+
+# Reset main.
+$ git switch -C main
+$ git tag -f latest
 ```
 
 ### Update the Fork/Origin
@@ -327,12 +337,10 @@ $ git pull . PR/requires_check_nil
 ```bash
 $ git push origin stable -f
 $ git push origin main -f
-$ git push origin PR/requires_check_nil -f
-# Repeat for each PR ...
-
-# Tag latest.
-$ git tag -f latest
 $ git push origin latest -f
+
+# Push updated PRs ...
+$ git push origin PR/requires_check_nil -f
 ```
 
 
