@@ -327,9 +327,10 @@ find . -name 'go.mod' | xargs sed -i 's,github.com/go-task/task,github.com/bosch
 $ git add .
 $ git commit -s -m"Update module URLs."
 
-# Reset main.
+# Reset main and tag the version.
 $ git switch -C main
 $ git tag -f latest
+$ git tag -a v3.43.3-stable -m"v3.43.3-stable"
 ```
 
 ### Update the Fork/Origin
@@ -338,11 +339,19 @@ $ git tag -f latest
 $ git push origin stable -f
 $ git push origin main -f
 $ git push origin latest -f
+$ git push origin v3.43.3-stable -f
 
 # Push updated PRs ...
 $ git push origin PR/requires_check_nil -f
+# Repeat for each PR ...
 ```
 
+### Use the Fork
+
+```bash
+# For Go forks.
+$ go install github.com/boschglobal/task/v3/cmd/task@latest
+```
 
 ## Contributions
 
