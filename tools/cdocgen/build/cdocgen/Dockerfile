@@ -7,12 +7,12 @@
 # alias dse-cdocgen='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_CDOCGEN_IMAGE:-dse-cdocgen:latest}'
 # dse-cdocgen --input test/testdata/header.h --output header.md --title Header --linktitle Header
 
-FROM golang:bullseye as builder
+FROM golang:bookworm as builder
 ADD . /src
 RUN cd /src && make build
 
 
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 LABEL maintainer="timothy.rule@de.bosch.com"
 
 RUN set -eux; \

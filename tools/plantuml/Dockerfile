@@ -7,7 +7,7 @@
 # alias dse-plantuml='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_PLANTUML_IMAGE:-dse-plantuml:latest}'
 # dse-plantuml -tpng index.md
 
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 LABEL maintainer="timothy.rule@de.bosch.com"
 
 RUN set -eux; \
