@@ -3,31 +3,17 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-TOOLS := tools/cdocgen tools/plantuml
-CONTAINERS = docsy-builder
+CONTAINERS = cdocgen docsy-builder plantuml
 
 
 .PHONY: doc
 default: doc
 doc:
 
-
-.PHONY: lint
-lint:
-	@for d in $(TOOLS); do ($(MAKE) -C $$d all ); done
-
 .PHONY: docker
 docker:
 	for d in $(CONTAINERS) ;\
 	do \
-		docker build -f tools/$$d/Dockerfile \
-				--tag $$d:latest ./tools/$$d ;\
+		docker build -f extra/docker/$$d/Dockerfile \
+				--tag $$d:test ./extra/docker/$$d ;\
 	done;
-
-.PHONY: tools
-tools:
-	@for d in $(TOOLS); do ($(MAKE) -C $$d all ); done
-
-.PHONY: clean
-clean:
-	@for d in $(TOOLS); do ($(MAKE) -C $$d clean ); done

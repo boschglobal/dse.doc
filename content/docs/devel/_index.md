@@ -3,7 +3,7 @@ title: "Developer Documentation"
 linkTitle: "Developer"
 cascade:
   - type: "docs"
-weight: 80
+weight: 400
 ---
 
 Dynamic Simulation Environment - Developer Documentation
