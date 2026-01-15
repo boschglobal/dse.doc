@@ -8,7 +8,7 @@ LITE_NAME			= c4lite
 LITE_CONTAINER  	= structurizr/lite
 CLI_NAME			= c4cli
 CLI_CONTAINER  	   	= structurizr/cli
-PLANTUML_CONTAINER 	?= dse-plantuml:latest
+PLANTUML_CONTAINER 	?= ghcr.io/boschglobal/dse-plantuml:latest
 
 EXPORT_FORMATS = plantuml plantuml/c4plantuml mermaid dot
 

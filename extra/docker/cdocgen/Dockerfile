@@ -4,7 +4,7 @@
 
 # Usage
 # =====
-# alias dse-cdocgen='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_CDOCGEN_IMAGE:-dse-cdocgen:latest}'
+# alias dse-cdocgen='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_CDOCGEN_IMAGE:-ghcr.io/boschglobal/dse-cdocgen:latest}'
 # dse-cdocgen --input test/testdata/header.h --output header.md --title Header --linktitle Header
 
 FROM golang:bookworm AS builder

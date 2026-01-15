@@ -4,7 +4,7 @@
 
 # Usage
 # =====
-# alias dse-plantuml='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_PLANTUML_IMAGE:-dse-plantuml:latest}'
+# alias dse-plantuml='docker run --rm -it --volume $(pwd):/tmp/code ${DSE_PLANTUML_IMAGE:-ghcr.io/boschglobal/dse-plantuml:latest}'
 # dse-plantuml -tpng index.md
 
 FROM debian:bookworm-slim
