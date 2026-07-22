@@ -1,4 +1,4 @@
-// Copyright 2023 Robert Bosch GmbH
+// Copyright 2025 Robert Bosch GmbH
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -7,27 +7,27 @@
 #include <string.h>
 #include <errno.h>
 #include <dse/ncodec/codec.h>
+#include <dse/ncodec/interface/frame.h>
+#include <dse/ncodec/stream/stream.h>
 
 
-#define MIMETYPE  "application/x-codec-example"
-#define UNUSED(x) ((void)x)
-
-
-extern NCodecStreamVTable example_stream;
+#define MIMETYPE   "application/x-codec-example"
+#define UNUSED(x)  ((void)x)
+#define BUFFER_LEN 1024
 
 
 static void trace_read(NCODEC* nc, NCodecMessage* m)
 {
     UNUSED(nc);
     NCodecCanMessage* msg = m;
-    printf("TRACE RX: %02d (length=%lu)\n", msg->frame_id, msg->len);
+    printf("TRACE RX: %02d (length=%zu)\n", msg->frame_id, msg->len);
 }
 
 static void trace_write(NCODEC* nc, NCodecMessage* m)
 {
     UNUSED(nc);
     NCodecCanMessage* msg = m;
-    printf("TRACE TX: %02d (length=%lu)\n", msg->frame_id, msg->len);
+    printf("TRACE TX: %02d (length=%zu)\n", msg->frame_id, msg->len);
 }
 
 
@@ -44,7 +44,9 @@ int main(int argc, char* argv[])
         }
     }
 
-    NCODEC* nc = ncodec_open(MIMETYPE, (void*)&example_stream);
+    NCodecStreamVTable* stream = ncodec_buffer_stream_create(BUFFER_LEN);
+
+    NCODEC* nc = ncodec_open(MIMETYPE, stream);
     if (nc == NULL) {
         printf("Open failed (errno %d)\n", errno);
         return errno;
