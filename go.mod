@@ -13,6 +13,7 @@ require (
 	github.com/boschglobal/dse.clib main // indirect
 	github.com/boschglobal/dse.fmi main // indirect
 	github.com/boschglobal/dse.modelc main // indirect
+	github.com/boschglobal/dse.ncodec main // indirect
 	github.com/boschglobal/dse.network main // indirect
 	github.com/boschglobal/dse.schemas main // indirect
 	github.com/boschglobal/dse.sdp main  // indirect
