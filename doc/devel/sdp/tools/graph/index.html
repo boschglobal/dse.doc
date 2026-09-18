@@ -1,0 +1,8086 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the DSE Core Platform - schemas, libraries, tools and workflows.">
+      
+      
+      
+        <link rel="canonical" href="https://boschglobal.github.io/dse.doc/doc/devel/sdp/tools/graph/">
+      
+      
+        <link rel="prev" href="../dsl/">
+      
+      
+        <link rel="next" href="../lsp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.62">
+    
+    
+      
+        <title>Graph - Graph Tools - Dynamic Simulation Environment</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/main.ce62732f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#synopsis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Dynamic Simulation Environment" class="md-header__button md-logo" aria-label="Dynamic Simulation Environment" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dynamic Simulation Environment
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Graph - Graph Tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/boschglobal/dse.doc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-branch" viewBox="0 0 24 24"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg>
+  </div>
+  <div class="md-source__repository">
+    boschglobal/dse.doc
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../about/" class="md-tabs__link">
+          
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../user/builder/" class="md-tabs__link">
+          
+  
+  Guide
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../arch/c4/" class="md-tabs__link">
+          
+  
+  Doc
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../apis/" class="md-tabs__link">
+          
+  
+  Api
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Dynamic Simulation Environment" class="md-nav__button md-logo" aria-label="Dynamic Simulation Environment" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Dynamic Simulation Environment
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/boschglobal/dse.doc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-branch" viewBox="0 0 24 24"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg>
+  </div>
+  <div class="md-source__repository">
+    boschglobal/dse.doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../about/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  About
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  license
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Guide
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/builder/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Builder
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Builder
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/simer/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Simer
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Simer
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/report/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Report
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Guides
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/guides/sdp/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDP
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  SDP
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Envars
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Envars
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/envars/fmi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FMI
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  FMI
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/envars/modelc/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  ModelC
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/envars/sdp/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDP
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  SDP
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/envars/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Environment
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  index
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  index
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Models
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/network/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_3" id="__nav_3_6_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Network
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/network/index_old/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/network/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  example
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/network/task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  task
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/fmimcl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FMI MCL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_4" id="__nav_3_6_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  FMI MCL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/fmimcl/script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  script
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/fmimcl/task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  task
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/gatewayfmu/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gateway FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_5" id="__nav_3_6_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Gateway FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/gatewayfmu/old_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gateway
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/gatewayfmu/script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  script
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/gatewayfmu/task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  task
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/modelcfmu/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_6" id="__nav_3_6_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  ModelC FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/modelcfmu/script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  script
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/modelcfmu/task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  task
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/csv/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CSV
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_7" id="__nav_3_6_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  CSV
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/csv/script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  script
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/csv/stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  stack
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user/models/lua/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Lua
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_8" id="__nav_3_6_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Lua
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/lua/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  example
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/lua/script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  script
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user/models/lua/stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  stack
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Doc
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Doc
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Arch
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Arch
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/c4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  C4 Diagrams
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  C4 Diagrams
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/benchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Benchmarks
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Benchmarks
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/topology/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Topology
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Topology
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/transport/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Transports
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Transports
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/mcl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  MCL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/signalvector/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Signals
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Signals
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../arch/gateway/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gateway
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Gateway
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../arch/fmi-modelc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  fmi-modelc
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Concept
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Concept
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../concept/signals/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Signals
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Signals
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../concept/schemas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Schemas
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Schemas
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../concept/composition/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Composition
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Composition
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../concept/distribution/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Distribution
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Distribution
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../concept/fsil/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FSIL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  FSIL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tools
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tools
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../tools/trace/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Trace
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Trace
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Devel
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Devel
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_1" id="__nav_4_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDP
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  SDP
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../builder/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Builder
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Builder
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDP
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../workflows/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workflows
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Workflows
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_1_4" id="__nav_4_4_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tools
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tools
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ast/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AST
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_4_4_1_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  AST
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../dsl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DSL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_4_4_1_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  DSL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_4_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="././" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Graph
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_4_4_1_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Graph
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1_4_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../lsp/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  LSP
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_4_4_1_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  LSP
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../contribution/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contribution
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Contribution
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../documentation/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentation
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Documentation
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Debug
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Debug
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../debug/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Debug
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../debug/modelc/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  ModelC
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_5" id="__nav_4_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Testing
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Testing
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Testing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../testing/cmocka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CMocka
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  CMocka
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../testing/simmock/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SimMock
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  SimMock
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../testing/testscript/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Testscript
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_4_5_4" id="__nav_4_4_5_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Testscript
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/testscript/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Testscript
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../ncodec/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCodec
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  NCodec
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  index
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  index
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/tutorial1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Run a Simulation
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Run a Simulation
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/tutorial2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Write a Model
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Write a Model
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/tutorial3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Use a Gateway
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Use a Gateway
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/tutorial4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Load an FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Load an FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../start/tutorial5/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configure a Network
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Configure a Network
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Api
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Api
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  ModelC
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/modelc/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/gateway/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gateway
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Gateway
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/mcl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  MCL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/model/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Model
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Model
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/runtime/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Runtime
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Runtime
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/schema/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Schema
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Schema
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/modelc/simmock/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SimMock
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  SimMock
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Clib
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Clib
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/clib/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CLib
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/clib/csv/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CSV
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  CSV
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/clib/ini/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  INI
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  INI
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/clib/marshal/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Marshal
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Marshal
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/clib/mdf/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MDF
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  MDF
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/clib/schedule/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Schedule
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Schedule
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FMI
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  FMI
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/fmi/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FMI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/fmi/fmigateway/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gateway FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Gateway FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/fmi/fmimcl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  MCL
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/fmi/fmimodelc/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ModelC FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  ModelC FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/fmi/fmu/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FMU
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  FMU
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Network
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/network/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/network/functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apis/network/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../apis/ncodec/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCodec
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  NCodec
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#synopsis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Synopsis
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Drop
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Import
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Export
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Report
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-tag-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Option Tag (-tag)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-list-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Option List (-list)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-name-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Option Name (-name)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-reports-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Option Reports (-reports)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-appliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Report Appliance
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report Appliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reports
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Static Validation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duplicate-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Duplicate Writes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Stack
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../../../../arch/c4/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Doc
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../../builder/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Devel
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../../builder/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    SDP
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../ast/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/boschglobal/dse.sdp/edit/main/doc/content/docs/devel/sdp/tools/graph/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497zM15 5l4 4"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/boschglobal/dse.sdp/blob/main/doc/content/docs/devel/sdp/tools/graph/index.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+    </a>
+  
+
+
+  <h1 id="__skip">Graph</h1>
+
+<h2 id="synopsis">Synopsis</h2>
+<p>Graph Tools for static and dynamic analysis of Simulations.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dse-graph<span class="w"> </span>report<span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h2 id="commands">Commands</h2>
+<p>The Graph tool includes the following commands and options:</p>
+<h3 id="drop">Drop</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dse-graph<span class="w"> </span>drop<span class="w"> </span>&lt;sim<span class="p">|</span>ast<span class="p">|</span>-all&gt;
+</code></pre></div>
+<h3 id="import">Import</h3>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>import<span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h3 id="export">Export</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dse-graph<span class="w"> </span><span class="nb">export</span><span class="w"> </span>export.cyp
+</code></pre></div>
+<h3 id="report">Report</h3>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>report<span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h4 id="option-tag-tag">Option Tag (-tag)</h4>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>report<span class="w"> </span>-tag<span class="o">=</span>tag_name<span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h4 id="option-list-list">Option List (-list)</h4>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>report<span class="w"> </span>&lt;-list<span class="p">|</span>-list-all<span class="p">|</span>-list-tags&gt;
+</code></pre></div>
+<h4 id="option-name-name">Option Name (-name)</h4>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>report<span class="w"> </span>-name<span class="o">=</span><span class="s2">"Report1;Report2"</span><span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h4 id="option-reports-reports">Option Reports (-reports)</h4>
+<div class="highlight"><pre><span></span><code>dse-graph<span class="w"> </span>report<span class="w"> </span>-reports<span class="o">=</span>path/to/reports<span class="w"> </span>examples/graph/&lt;sim-name&gt;/&lt;sim-status&gt;
+</code></pre></div>
+<h2 id="report-appliance">Report Appliance</h2>
+<h3 id="usage">Usage</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start the memgraph container (using a make target).</span>
+$<span class="w"> </span>make<span class="w"> </span>graph
+
+<span class="c1"># Build containerized graph tool.</span>
+$<span class="w"> </span>make<span class="w"> </span>docker
+
+<span class="c1"># Run tests.</span>
+$<span class="w"> </span>make<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Define a shell function for the report command.</span>
+$<span class="w"> </span>dse-report<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span>-t<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>:/sim<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>dse-report:test<span class="w"> </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="o">}</span>
+
+<span class="c1"># Run the reports on a simulation.</span>
+$<span class="w"> </span>dse-report<span class="w"> </span>examples/graph/static_validation/sim_good
+...
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Duplicate<span class="w"> </span>Writes<span class="w"> </span>Check
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>ModelInstance<span class="w"> </span>Name<span class="w"> </span>Check
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Model<span class="w"> </span>UID<span class="w"> </span>Check
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Channel<span class="w"> </span><span class="s1">'expectedModelCount'</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Count<span class="w"> </span><span class="s1">'ModelInst'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span>and<span class="w"> </span>SIM
+Ran<span class="w"> </span><span class="m">5</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">0</span>
+
+<span class="c1"># Run specific reports by name.</span>
+$<span class="w"> </span>dse-report<span class="w"> </span>--name<span class="o">=</span><span class="s2">"Model UID Check;ModelInstance Name Check"</span><span class="w"> </span>examples/graph/stack/sim_good
+...
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>ModelInstance<span class="w"> </span>Name<span class="w"> </span>Check
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Model<span class="w"> </span>UID<span class="w"> </span>Check
+Ran<span class="w"> </span><span class="m">2</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<h2 id="reports">Reports</h2>
+<h3 id="static-validation">Static Validation</h3>
+<p>Performs a collection of static validation checks on simulation configuration files.</p>
+<details>
+<summary>Static Validation - Simulation with no errors</summary>
+
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dse-report<span class="w"> </span>--name<span class="o">=</span><span class="s2">"Channel 'expectedModelCount';Count 'ModelInst' in AST and SIM"</span><span class="w"> </span>examples/graph/static_validation/sim_good
+...
+Pinging<span class="w"> </span>Memgraph...
+...
+Running<span class="w"> </span>command:<span class="w"> </span>drop
+...
+Running<span class="w"> </span>command:<span class="w"> </span>report
+Options:
+<span class="w">  </span>db<span class="w">             </span>:<span class="w"> </span>bolt://localhost:7687
+<span class="w">  </span>list<span class="w">           </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-all<span class="w">       </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-tags<span class="w">      </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>name<span class="w">           </span>:
+<span class="w">  </span>reports<span class="w">        </span>:
+<span class="w">  </span>tag<span class="w">            </span>:
+<span class="m">2025</span>/05/22<span class="w"> </span><span class="m">20</span>:05:59<span class="w"> </span>INFO<span class="w"> </span>Connect<span class="w"> </span>to<span class="w"> </span>graph<span class="w"> </span><span class="nv">db</span><span class="o">=</span>bolt://localhost:7687
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Simulation
+simulation.yaml
+Stack
+simulation.yaml
+Model
+simulation.yaml
+<span class="nv">Simulation</span>
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Channel<span class="w"> </span><span class="s1">'expectedModelCount'</span>
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/static_validation.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:14:51
+Query:<span class="w"> </span>Expected<span class="w"> </span>Count
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>mi:ModelInst<span class="o">)</span>-<span class="o">[</span>:Alias<span class="o">]</span>-&gt;<span class="o">(</span>ch:Channel<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>ch.name<span class="w"> </span>AS<span class="w"> </span>channelName,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>actualCount
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>:Simbus<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>sc:SimbusChannel<span class="o">)</span>
+<span class="w">    </span>WHERE<span class="w"> </span>sc.name<span class="w"> </span><span class="o">=</span><span class="w"> </span>channelName
+<span class="w">    </span>RETURN<span class="w"> </span>channelName,
+<span class="w">          </span>sc.expectedModelCount<span class="w"> </span>AS<span class="w"> </span>expectedCount,
+<span class="w">          </span>actualCount,
+<span class="w">          </span>CASE<span class="w"> </span>WHEN<span class="w"> </span>sc.expectedModelCount<span class="w"> </span><span class="o">=</span><span class="w"> </span>actualCount<span class="w"> </span>THEN<span class="w"> </span><span class="s2">"PASS"</span><span class="w"> </span>ELSE<span class="w"> </span><span class="s2">"FAIL"</span><span class="w"> </span>END<span class="w"> </span>AS<span class="w"> </span>result
+
+Results:
++-------------+---------------+-------------+--------+
+<span class="p">|</span><span class="w"> </span>CHANNELNAME<span class="w"> </span><span class="p">|</span><span class="w"> </span>EXPECTEDCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>ACTUALCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>RESULT<span class="w"> </span><span class="p">|</span>
++-------------+---------------+-------------+--------+
+<span class="p">|</span><span class="w"> </span>Network<span class="w">     </span><span class="p">|</span><span class="w">             </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w">           </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>PASS<span class="w">   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span><span class="w">             </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w">           </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>PASS<span class="w">   </span><span class="p">|</span>
++-------------+---------------+-------------+--------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span>Passed
+Query:<span class="w"> </span>Model<span class="w"> </span>to<span class="w"> </span>Channel<span class="w"> </span>Mapping
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>st:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>-<span class="o">[</span>a:Alias<span class="o">]</span>-&gt;<span class="o">(</span>ch:Channel<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>mi,<span class="w"> </span>a,<span class="w"> </span>ch
+<span class="w">    </span>RETURN<span class="w"> </span>mi.name<span class="w"> </span>AS<span class="w"> </span>modelInstName,<span class="w"> </span>a.name<span class="w"> </span>as<span class="w"> </span>alias,<span class="w"> </span>ch.name<span class="w"> </span>AS<span class="w"> </span>channelName
+
+Results:
++---------------+-----------------+-------------+
+<span class="p">|</span><span class="w"> </span>MODELINSTNAME<span class="w"> </span><span class="p">|</span><span class="w"> </span>ALIAS<span class="w">           </span><span class="p">|</span><span class="w"> </span>CHANNELNAME<span class="w"> </span><span class="p">|</span>
++---------------+-----------------+-------------+
+<span class="p">|</span><span class="w"> </span>input<span class="w">         </span><span class="p">|</span><span class="w"> </span>scalar<span class="w">          </span><span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>linear<span class="w">        </span><span class="p">|</span><span class="w"> </span>signal_channel<span class="w">  </span><span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>linear<span class="w">        </span><span class="p">|</span><span class="w"> </span>network_channel<span class="w"> </span><span class="p">|</span><span class="w"> </span>Network<span class="w">     </span><span class="p">|</span>
++---------------+-----------------+-------------+
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Count<span class="w"> </span><span class="s1">'ModelInst'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span>and<span class="w"> </span>SIM
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/static_validation.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:14:51
+Query:<span class="w"> </span>Expected<span class="w"> </span>Count
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>fl:File<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>st:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>fl,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>countSim
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>fl<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>sim:Simulation<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>st2:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi2:ModelInst<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>countSim,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi2<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>countAst
+<span class="w">    </span>RETURN
+<span class="w">        </span>countAst<span class="w"> </span>AS<span class="w"> </span>astModelInstCount,
+<span class="w">        </span>countSim<span class="w"> </span>AS<span class="w"> </span>simModelInstCount,
+<span class="w">        </span>CASE<span class="w"> </span>WHEN<span class="w"> </span><span class="nv">countAst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>countSim<span class="w"> </span>THEN<span class="w"> </span><span class="s2">"PASS"</span><span class="w"> </span>ELSE<span class="w"> </span><span class="s2">"FAIL"</span><span class="w"> </span>END<span class="w"> </span>AS<span class="w"> </span>result
+
+Results:
++-------------------+-------------------+--------+
+<span class="p">|</span><span class="w"> </span>ASTMODELINSTCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>SIMMODELINSTCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>RESULT<span class="w"> </span><span class="p">|</span>
++-------------------+-------------------+--------+
+<span class="p">|</span><span class="w">                 </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w">                 </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>PASS<span class="w">   </span><span class="p">|</span>
++-------------------+-------------------+--------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span><span class="nv">Passed</span>
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Channel<span class="w"> </span><span class="s1">'expectedModelCount'</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Count<span class="w"> </span><span class="s1">'ModelInst'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span>and<span class="w"> </span>SIM
+Ran<span class="w"> </span><span class="m">2</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>Static Validation - Simulation <b>with</b> errors</summary>
+
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dse-report<span class="w"> </span>--name<span class="o">=</span><span class="s2">"Channel 'expectedModelCount';Count 'ModelInst' in AST and SIM"</span><span class="w"> </span>examples/graph/static_validation/sim_with_error
+...
+Pinging<span class="w"> </span>Memgraph...
+...
+Running<span class="w"> </span>command:<span class="w"> </span>drop
+...
+Running<span class="w"> </span>command:<span class="w"> </span>report
+Options:
+<span class="w">  </span>db<span class="w">             </span>:<span class="w"> </span>bolt://localhost:7687
+<span class="w">  </span>list<span class="w">           </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-all<span class="w">       </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-tags<span class="w">      </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>name<span class="w">           </span>:
+<span class="w">  </span>reports<span class="w">        </span>:
+<span class="w">  </span>tag<span class="w">            </span>:
+<span class="m">2025</span>/05/22<span class="w"> </span><span class="m">20</span>:10:03<span class="w"> </span>INFO<span class="w"> </span>Connect<span class="w"> </span>to<span class="w"> </span>graph<span class="w"> </span><span class="nv">db</span><span class="o">=</span>bolt://localhost:7687
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Simulation
+simulation.yaml
+Stack
+simulation.yaml
+Model
+simulation.yaml
+<span class="nv">Simulation</span>
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Channel<span class="w"> </span><span class="s1">'expectedModelCount'</span>
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/static_validation.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:15:29
+Query:<span class="w"> </span>Expected<span class="w"> </span>Count
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>mi:ModelInst<span class="o">)</span>-<span class="o">[</span>:Alias<span class="o">]</span>-&gt;<span class="o">(</span>ch:Channel<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>ch.name<span class="w"> </span>AS<span class="w"> </span>channelName,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>actualCount
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>:Simbus<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>sc:SimbusChannel<span class="o">)</span>
+<span class="w">    </span>WHERE<span class="w"> </span>sc.name<span class="w"> </span><span class="o">=</span><span class="w"> </span>channelName
+<span class="w">    </span>RETURN<span class="w"> </span>channelName,
+<span class="w">          </span>sc.expectedModelCount<span class="w"> </span>AS<span class="w"> </span>expectedCount,
+<span class="w">          </span>actualCount,
+<span class="w">          </span>CASE<span class="w"> </span>WHEN<span class="w"> </span>sc.expectedModelCount<span class="w"> </span><span class="o">=</span><span class="w"> </span>actualCount<span class="w"> </span>THEN<span class="w"> </span><span class="s2">"PASS"</span><span class="w"> </span>ELSE<span class="w"> </span><span class="s2">"FAIL"</span><span class="w"> </span>END<span class="w"> </span>AS<span class="w"> </span>result
+
+Results:
++-------------+---------------+-------------+--------+
+<span class="p">|</span><span class="w"> </span>CHANNELNAME<span class="w"> </span><span class="p">|</span><span class="w"> </span>EXPECTEDCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>ACTUALCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>RESULT<span class="w"> </span><span class="p">|</span>
++-------------+---------------+-------------+--------+
+<span class="p">|</span><span class="w"> </span>Network<span class="w">     </span><span class="p">|</span><span class="w">             </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w">           </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>PASS<span class="w">   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span><span class="w">             </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w">           </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>PASS<span class="w">   </span><span class="p">|</span>
++-------------+---------------+-------------+--------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span>Passed
+Query:<span class="w"> </span>Model<span class="w"> </span>to<span class="w"> </span>Channel<span class="w"> </span>Mapping
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>st:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>-<span class="o">[</span>a:Alias<span class="o">]</span>-&gt;<span class="o">(</span>ch:Channel<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>mi,<span class="w"> </span>a,<span class="w"> </span>ch
+<span class="w">    </span>RETURN<span class="w"> </span>mi.name<span class="w"> </span>AS<span class="w"> </span>modelInstName,<span class="w"> </span>a.name<span class="w"> </span>as<span class="w"> </span>alias,<span class="w"> </span>ch.name<span class="w"> </span>AS<span class="w"> </span>channelName
+
+Results:
++---------------+-----------------+-------------+
+<span class="p">|</span><span class="w"> </span>MODELINSTNAME<span class="w"> </span><span class="p">|</span><span class="w"> </span>ALIAS<span class="w">           </span><span class="p">|</span><span class="w"> </span>CHANNELNAME<span class="w"> </span><span class="p">|</span>
++---------------+-----------------+-------------+
+<span class="p">|</span><span class="w"> </span>input<span class="w">         </span><span class="p">|</span><span class="w"> </span>scalar<span class="w">          </span><span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>linear<span class="w">        </span><span class="p">|</span><span class="w"> </span>signal_channel<span class="w">  </span><span class="p">|</span><span class="w"> </span>physical<span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>linear<span class="w">        </span><span class="p">|</span><span class="w"> </span>network_channel<span class="w"> </span><span class="p">|</span><span class="w"> </span>Network<span class="w">     </span><span class="p">|</span>
++---------------+-----------------+-------------+
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Count<span class="w"> </span><span class="s1">'ModelInst'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span>and<span class="w"> </span>SIM
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/static_validation.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:15:29
+Query:<span class="w"> </span>Expected<span class="w"> </span>Count
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>fl:File<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>st:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>fl,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>countSim
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>fl<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>sim:Simulation<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>st2:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi2:ModelInst<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>countSim,<span class="w"> </span>COUNT<span class="o">(</span>DISTINCT<span class="w"> </span>mi2<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>countAst
+<span class="w">    </span>RETURN
+<span class="w">        </span>countAst<span class="w"> </span>AS<span class="w"> </span>astModelInstCount,
+<span class="w">        </span>countSim<span class="w"> </span>AS<span class="w"> </span>simModelInstCount,
+<span class="w">        </span>CASE<span class="w"> </span>WHEN<span class="w"> </span><span class="nv">countAst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>countSim<span class="w"> </span>THEN<span class="w"> </span><span class="s2">"PASS"</span><span class="w"> </span>ELSE<span class="w"> </span><span class="s2">"FAIL"</span><span class="w"> </span>END<span class="w"> </span>AS<span class="w"> </span>result
+
+Results:
++-------------------+-------------------+--------+
+<span class="p">|</span><span class="w"> </span>ASTMODELINSTCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>SIMMODELINSTCOUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>RESULT<span class="w"> </span><span class="p">|</span>
++-------------------+-------------------+--------+
+<span class="p">|</span><span class="w">                 </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w">                 </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>FAIL<span class="w">   </span><span class="p">|</span>
++-------------------+-------------------+--------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span>Failed
+Hint:<span class="w"> </span>The<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>Model<span class="w"> </span>Instances<span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span><span class="k">do</span><span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>the<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>Model<span class="w"> </span>Instances<span class="w"> </span><span class="k">in</span><span class="w"> </span>SIM.
+
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>PASS<span class="o">]</span><span class="w"> </span>Channel<span class="w"> </span><span class="s1">'expectedModelCount'</span>
+<span class="o">[</span>FAIL<span class="o">]</span><span class="w"> </span>Count<span class="w"> </span><span class="s1">'ModelInst'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>AST<span class="w"> </span>and<span class="w"> </span>SIM
+Ran<span class="w"> </span><span class="m">2</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+</details>
+
+<h3 id="duplicate-writes">Duplicate Writes</h3>
+<p>Check a simulation configuration for Signals which are written by multiple
+Models. In such instances the value of a signal becomes non-deterministic - such
+simulations may be incorrectly configured.</p>
+<details>
+<summary>Duplicate Writes - Simulation configuration check</summary>
+
+<div class="highlight"><pre><span></span><code>...
+Pinging<span class="w"> </span>Memgraph...
+...
+Running<span class="w"> </span>command:<span class="w"> </span>drop
+...
+$<span class="w"> </span>dse-report<span class="w"> </span>--name<span class="o">=</span><span class="s2">"Duplicate Writes Check"</span><span class="w"> </span>examples/graph/duplicate_writes/sim_with_error
+Running<span class="w"> </span>command:<span class="w"> </span>report
+Options:
+<span class="w">  </span>db<span class="w">             </span>:<span class="w"> </span>bolt://localhost:7687
+<span class="w">  </span>list<span class="w">           </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-all<span class="w">       </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-tags<span class="w">      </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>name<span class="w">           </span>:
+<span class="w">  </span>reports<span class="w">        </span>:
+<span class="w">  </span>tag<span class="w">            </span>:
+<span class="m">2025</span>/05/22<span class="w"> </span><span class="m">20</span>:12:27<span class="w"> </span>INFO<span class="w"> </span>Connect<span class="w"> </span>to<span class="w"> </span>graph<span class="w"> </span><span class="nv">db</span><span class="o">=</span>bolt://localhost:7687
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+simulation.yaml
+Stack
+simulation.yaml
+Model
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+model.yaml
+Model
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>SignalGroup
+signalgroup.yaml
+SignalGroup
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+model.yaml
+Model
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>SignalGroup
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>SignalGroup
+signalgroup.yaml
+SignalGroup
+signalgroup.yaml
+SignalGroup
+<span class="m">2025</span>/05/27<span class="w"> </span><span class="m">10</span>:15:48<span class="w"> </span>Relationship<span class="w"> </span>created:<span class="w"> </span>Channel<span class="o">(</span>ID:<span class="w"> </span><span class="m">7421</span><span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>Represents<span class="w"> </span>-&gt;<span class="w"> </span>SignalGroup<span class="o">(</span>ID:<span class="w"> </span><span class="m">7439</span><span class="o">)</span>
+<span class="m">2025</span>/05/27<span class="w"> </span><span class="m">10</span>:15:48<span class="w"> </span>Skipping<span class="w"> </span>channel<span class="w"> </span>ID<span class="w"> </span><span class="m">7428</span><span class="w"> </span><span class="o">(</span>labelCount:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>selectorCount:<span class="w"> </span><span class="m">2</span><span class="o">)</span>
+<span class="m">2025</span>/05/27<span class="w"> </span><span class="m">10</span>:15:48<span class="w"> </span>Relationship<span class="w"> </span>created:<span class="w"> </span>Channel<span class="o">(</span>ID:<span class="w"> </span><span class="m">7428</span><span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>Represents<span class="w"> </span>-&gt;<span class="w"> </span>SignalGroup<span class="o">(</span>ID:<span class="w"> </span><span class="m">7455</span><span class="o">)</span>
+<span class="m">2025</span>/05/27<span class="w"> </span><span class="m">10</span>:15:48<span class="w"> </span>Relationship<span class="w"> </span>created:<span class="w"> </span>Channel<span class="o">(</span>ID:<span class="w"> </span><span class="m">7421</span><span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>Represents<span class="w"> </span>-&gt;<span class="w"> </span>SignalGroup<span class="o">(</span>ID:<span class="w"> </span><span class="m">7448</span><span class="o">)</span>
+<span class="m">2025</span>/05/27<span class="w"> </span><span class="m">10</span>:15:48<span class="w"> </span>Skipping<span class="w"> </span>channel<span class="w"> </span>ID<span class="w"> </span><span class="m">7421</span><span class="w"> </span><span class="o">(</span>labelCount:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>selectorCount:<span class="w"> </span><span class="m">2</span><span class="o">)</span>
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Duplicate<span class="w"> </span>Writes<span class="w"> </span>Check
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/duplicate_writes.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:15:48
+Query:<span class="w"> </span>Duplicate<span class="w"> </span>Write<span class="w"> </span>Signals
+Cypher:
+<span class="w">    </span>//<span class="w"> </span>Get<span class="w"> </span>output<span class="w"> </span>signals<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>SimbusChannel.
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>sc:SimbusChannel<span class="o">)</span>&lt;-<span class="o">[</span>:Belongs<span class="o">]</span>-<span class="o">(</span>ch1:Channel<span class="o">)</span>
+<span class="w">    </span>-<span class="o">[</span>:Represents<span class="o">]</span>-&gt;<span class="o">(</span>:SignalGroup<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>s1:Signal<span class="o">)</span>
+<span class="w">    </span>WHERE<span class="w"> </span>s1.annotations.fmi_variable_causality<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"output"</span>
+<span class="w">    </span>WITH<span class="w"> </span>sc<span class="w"> </span>AS<span class="w"> </span>simbus_channel,<span class="w"> </span>collect<span class="o">(</span>DISTINCT<span class="w"> </span>s1.name<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>output_signals
+
+<span class="w">    </span>//<span class="w"> </span>Get<span class="w"> </span>input<span class="w"> </span>signals<span class="w"> </span>from<span class="w"> </span>input<span class="w"> </span>model<span class="w"> </span>instance<span class="w"> </span>with<span class="w"> </span>matching<span class="w"> </span>selector.channel.
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>sc:SimbusChannel<span class="o">)</span>&lt;-<span class="o">[</span>:Belongs<span class="o">]</span>-<span class="o">(</span>ch2:Channel<span class="o">)</span>&lt;-<span class="o">[</span>:Alias<span class="o">]</span>-
+<span class="w">    </span><span class="o">(</span>mi:ModelInst<span class="w"> </span><span class="o">{</span>name:<span class="w"> </span><span class="s2">"input"</span><span class="o">})</span>-<span class="o">[</span>:InstanceOf<span class="o">]</span>-&gt;<span class="o">(</span>:Model<span class="o">)</span>
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>mi<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>sel:Selector<span class="o">)</span>-<span class="o">[</span>:Selects<span class="o">]</span>-&gt;<span class="o">(</span>:Label<span class="o">)</span>
+<span class="w">    </span>&lt;-<span class="o">[</span>:Has<span class="o">]</span>-<span class="o">(</span>:SignalGroup<span class="o">)</span>-<span class="o">[</span>:Contains<span class="o">]</span>-&gt;<span class="o">(</span>s2:Signal<span class="o">)</span>
+<span class="w">    </span>WITH<span class="w"> </span>simbus_channel,<span class="w"> </span>output_signals,<span class="w"> </span>collect<span class="o">(</span>DISTINCT<span class="w"> </span>s2.name<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>input_signal_list
+
+<span class="w">    </span>//<span class="w"> </span>Find<span class="w"> </span>intersection<span class="w"> </span>using<span class="w"> </span>UNWIND<span class="w"> </span>and<span class="w"> </span>WHERE.
+<span class="w">    </span>UNWIND<span class="w"> </span>input_signal_list<span class="w"> </span>AS<span class="w"> </span>individual_input_signal
+<span class="w">    </span>WITH<span class="w"> </span>simbus_channel,<span class="w"> </span>output_signals,<span class="w"> </span>input_signal_list,<span class="w"> </span>individual_input_signal
+<span class="w">    </span>WHERE<span class="w"> </span>individual_input_signal<span class="w"> </span>IN<span class="w"> </span>output_signals
+<span class="w">    </span>WITH<span class="w"> </span>simbus_channel,<span class="w"> </span>output_signals,<span class="w"> </span>input_signal_list,
+<span class="w">    </span>collect<span class="o">(</span>individual_input_signal<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>common_signals
+
+<span class="w">    </span>RETURN<span class="w"> </span>simbus_channel,<span class="w"> </span>common_signals
+
+Results:
++-------------------------------------------------------------------------+----------------+
+<span class="p">|</span><span class="w"> </span>SIMBUS_CHANNEL<span class="w">                                                          </span><span class="p">|</span><span class="w"> </span>COMMON_SIGNALS<span class="w"> </span><span class="p">|</span>
++-------------------------------------------------------------------------+----------------+
+<span class="p">|</span><span class="w"> </span><span class="o">{</span><span class="m">7418</span><span class="w"> </span><span class="m">7418</span><span class="w"> </span><span class="o">[</span>Sim<span class="w"> </span>SimbusChannel<span class="o">]</span><span class="w"> </span>map<span class="o">[</span>expectedModelCount:2<span class="w"> </span>name:physical<span class="o">]}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="o">[</span>factor<span class="o">]</span><span class="w">       </span><span class="p">|</span>
++-------------------------------------------------------------------------+----------------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span><span class="nv">Failed</span>
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>FAIL<span class="o">]</span><span class="w"> </span>Duplicate<span class="w"> </span>Writes<span class="w"> </span>Check
+Ran<span class="w"> </span><span class="m">1</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+</details>
+
+<h3 id="stack">Stack</h3>
+<p>Check that a simulation configuration contains only unique ModelInstance names
+and that all Model UIDs are unique and non-zero.</p>
+<details>
+<summary>Stack - Simulation configuration check</summary>
+
+<div class="highlight"><pre><span></span><code>...
+Pinging<span class="w"> </span>Memgraph...
+...
+Running<span class="w"> </span>command:<span class="w"> </span>drop
+...
+$<span class="w"> </span>dse-report<span class="w"> </span>--name<span class="o">=</span><span class="s2">"ModelInstance Name Check;Model UID Check"</span><span class="w"> </span>examples/graph/stack/sim_with_error
+Running<span class="w"> </span>command:<span class="w"> </span>report
+Options:
+<span class="w">  </span>db<span class="w">             </span>:<span class="w"> </span>bolt://localhost:7687
+<span class="w">  </span>list<span class="w">           </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-all<span class="w">       </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>list-tags<span class="w">      </span>:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>name<span class="w">           </span>:
+<span class="w">  </span>reports<span class="w">        </span>:
+<span class="w">  </span>tag<span class="w">            </span>:
+<span class="m">2025</span>/05/22<span class="w"> </span><span class="m">20</span>:18:33<span class="w"> </span>INFO<span class="w"> </span>Connect<span class="w"> </span>to<span class="w"> </span>graph<span class="w"> </span><span class="nv">db</span><span class="o">=</span>bolt://localhost:7687
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Stack
+<span class="w">  </span>Handler:<span class="w">  </span>yaml/kind<span class="o">=</span>Model
+simulation.yaml
+Stack
+simulation.yaml
+Stack
+simulation.yaml
+Stack
+simulation.yaml
+<span class="nv">Model</span>
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>ModelInstance<span class="w"> </span>Name<span class="w"> </span>Check
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/stack.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:16:31
+Query:<span class="w"> </span>Unique<span class="w"> </span>ModelInstance<span class="w"> </span>Name
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>
+<span class="w">    </span>WHERE<span class="w"> </span>mi.name<span class="w"> </span>IS<span class="w"> </span>NOT<span class="w"> </span>NULL
+<span class="w">    </span>WITH<span class="w"> </span>mi.name<span class="w"> </span>AS<span class="w"> </span>name,<span class="w"> </span>count<span class="o">(</span>*<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>count
+<span class="w">    </span>WHERE<span class="w"> </span>count<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>
+<span class="w">    </span>RETURN<span class="w"> </span>name,<span class="w"> </span>count
+
+Results:
++-----------+-------+
+<span class="p">|</span><span class="w"> </span>NAME<span class="w">      </span><span class="p">|</span><span class="w"> </span>COUNT<span class="w"> </span><span class="p">|</span>
++-----------+-------+
+<span class="p">|</span><span class="w"> </span>counter_A<span class="w"> </span><span class="p">|</span><span class="w">     </span><span class="m">2</span><span class="w"> </span><span class="p">|</span>
++-----------+-------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span><span class="nv">Failed</span>
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="o">===================================================================</span>
+Name:<span class="w"> </span>Model<span class="w"> </span>UID<span class="w"> </span>Check
+Path:<span class="w"> </span>/home/memgraph/.local/share/dse-graph/reports/stack.yaml
+Version:<span class="w"> </span><span class="m">0</span>.0.0
+Date:<span class="w"> </span><span class="m">2025</span>-05-27<span class="w"> </span><span class="m">10</span>:16:31
+Query:<span class="w"> </span>Unique<span class="w"> </span>Non-zero<span class="w"> </span>Model<span class="w"> </span>UID
+Cypher:
+<span class="w">    </span>MATCH<span class="w"> </span><span class="o">(</span>:Stack<span class="o">)</span>-<span class="o">[</span>:Has<span class="o">]</span>-&gt;<span class="o">(</span>mi:ModelInst<span class="o">)</span>
+<span class="w">    </span>WHERE<span class="w"> </span>mi.uid<span class="w"> </span>IS<span class="w"> </span>NOT<span class="w"> </span>NULL
+<span class="w">    </span>WITH<span class="w"> </span>mi.uid<span class="w"> </span>AS<span class="w"> </span>uid,<span class="w"> </span>collect<span class="o">(</span>mi.name<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>names,<span class="w"> </span>count<span class="o">(</span>*<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>count
+<span class="w">    </span>WHERE<span class="w"> </span><span class="nv">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0"</span><span class="w"> </span>OR<span class="w"> </span>count<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>
+<span class="w">    </span>RETURN<span class="w"> </span>uid,<span class="w"> </span>count,<span class="w"> </span>names
+
+Results:
++-----+-------+-----------------------+
+<span class="p">|</span><span class="w"> </span>UID<span class="w"> </span><span class="p">|</span><span class="w"> </span>COUNT<span class="w"> </span><span class="p">|</span><span class="w"> </span>NAMES<span class="w">                 </span><span class="p">|</span>
++-----+-------+-----------------------+
+<span class="p">|</span><span class="w"> </span><span class="m">43</span><span class="w">  </span><span class="p">|</span><span class="w">     </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="o">[</span>counter_B<span class="w"> </span>counter_C<span class="o">]</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">   </span><span class="p">|</span><span class="w">     </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="o">[</span>counter_A<span class="o">]</span><span class="w">           </span><span class="p">|</span>
++-----+-------+-----------------------+
+Evaluation:<span class="w"> </span>Report<span class="w"> </span><span class="nv">Failed</span>
+
+
+<span class="o">===</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">===================================================================</span>
+<span class="o">[</span>FAIL<span class="o">]</span><span class="w"> </span>ModelInstance<span class="w"> </span>Name<span class="w"> </span>Check
+<span class="o">[</span>FAIL<span class="o">]</span><span class="w"> </span>Model<span class="w"> </span>UID<span class="w"> </span>Check
+Ran<span class="w"> </span><span class="m">2</span><span class="w"> </span>Reports<span class="w"> </span><span class="p">|</span><span class="w"> </span>Passed:<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Failed:<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+</details>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">SDP</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">CLI</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../dsl/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DSL">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                DSL
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lsp/" class="md-footer__link md-footer__link--next" aria-label="Next: LSP">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                LSP
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Robert Bosch GmbH
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.action.edit","content.action.view","content.footnote.tooltips","content.tabs.link","content.tabs.sticky","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.tabs","navigation.tabs.sticky","navigation.top","navigation.tracking","search.highlight","search.suggest","toc.follow"],"redirect":null,"search":"../../../../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      
+    
+  </body>
+</html>
