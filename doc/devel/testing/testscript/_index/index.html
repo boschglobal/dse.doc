@@ -8083,94 +8083,94 @@ Commands marked <code>[!]</code> support the negation prefix.</p>
 <table>
 <thead>
 <tr>
-<th>Command</th>
-<th>Description</th>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>cd dir</code></td>
-<td>Change working directory for subsequent commands.</td>
+<td style="text-align: left;"><code>cd dir</code></td>
+<td style="text-align: left;">Change the working directory for subsequent commands.</td>
 </tr>
 <tr>
-<td><code>chmod perm path...</code></td>
-<td>Change permissions (octal mode, e.g. <code>0644</code>).</td>
+<td style="text-align: left;"><code>chmod perm path...</code></td>
+<td style="text-align: left;">Change permissions using an octal mode, such as <code>0644</code>.</td>
 </tr>
 <tr>
-<td><code>[!] cmp file1 file2</code></td>
-<td>Check files have identical content. <code>file1</code> may be <code>stdout</code> or <code>stderr</code>. On mismatch, a diff is printed.</td>
+<td style="text-align: left;"><code>[!] cmp file1 file2</code></td>
+<td style="text-align: left;">Compare two files. <code>file1</code> may be <code>stdout</code> or <code>stderr</code>; mismatches print a diff.</td>
 </tr>
 <tr>
-<td><code>[!] cmpenv file1 file2</code></td>
-<td>Like <code>cmp</code>, but environment variables in <code>file2</code> are substituted first.</td>
+<td style="text-align: left;"><code>[!] cmpenv file1 file2</code></td>
+<td style="text-align: left;">Compare files after substituting environment variables in <code>file2</code>.</td>
 </tr>
 <tr>
-<td><code>cp src... dst</code></td>
-<td>Copy files to a target file or directory. <code>src</code> may be <code>stdout</code> or <code>stderr</code>.</td>
+<td style="text-align: left;"><code>cp src... dst</code></td>
+<td style="text-align: left;">Copy files to a target file or directory. <code>src</code> may be <code>stdout</code> or <code>stderr</code>.</td>
 </tr>
 <tr>
-<td><code>env [key=value...]</code></td>
-<td>With no args, print the environment (useful for debugging). Otherwise set variables.</td>
+<td style="text-align: left;"><code>env [key=value...]</code></td>
+<td style="text-align: left;">Print the environment with no arguments; otherwise set variables.</td>
 </tr>
 <tr>
-<td><code>[!] exec program [args...] [&amp;]</code></td>
-<td>Run a program. Append <code>&amp;</code> to run in the background; <code>&amp;word&amp;</code> to name the background job.</td>
+<td style="text-align: left;"><code>[!] exec program [args...] [&amp;]</code></td>
+<td style="text-align: left;">Run a program. Append <code>&amp;</code> to run it in the background; use <code>&amp;word&amp;</code> to name the job.</td>
 </tr>
 <tr>
-<td><code>[!] exists [-readonly] file...</code></td>
-<td>Check that files or directories exist (or do not exist).</td>
+<td style="text-align: left;"><code>[!] exists [-readonly] file...</code></td>
+<td style="text-align: left;">Check whether files or directories exist.</td>
 </tr>
 <tr>
-<td><code>[!] grep [-count=N] pattern file</code></td>
-<td>Match a regexp against a file's content. <code>-count=N</code> requires exactly N matches.</td>
+<td style="text-align: left;"><code>[!] grep [-count=N] pattern file</code></td>
+<td style="text-align: left;">Match a regular expression against a file. <code>-count=N</code> requires exactly <code>N</code> matches.</td>
 </tr>
 <tr>
-<td><code>kill [-SIGNAL] [command]</code></td>
-<td>Terminate background commands. Signal may be <code>KILL</code> (default) or <code>INT</code>. Optional <code>command</code> targets a named job.</td>
+<td style="text-align: left;"><code>kill [-SIGNAL] [command]</code></td>
+<td style="text-align: left;">Terminate background commands. The default signal is <code>KILL</code>; optionally target a named job.</td>
 </tr>
 <tr>
-<td><code>mkdir path...</code></td>
-<td>Create directories (no-op if they already exist).</td>
+<td style="text-align: left;"><code>mkdir path...</code></td>
+<td style="text-align: left;">Create directories; existing directories are ignored.</td>
 </tr>
 <tr>
-<td><code>mv path1 path2</code></td>
-<td>Rename a file or directory.</td>
+<td style="text-align: left;"><code>mv path1 path2</code></td>
+<td style="text-align: left;">Rename a file or directory.</td>
 </tr>
 <tr>
-<td><code>rm file...</code></td>
-<td>Remove files or directories.</td>
+<td style="text-align: left;"><code>rm file...</code></td>
+<td style="text-align: left;">Remove files or directories.</td>
 </tr>
 <tr>
-<td><code>skip [message]</code></td>
-<td>Mark the test as skipped.</td>
+<td style="text-align: left;"><code>skip [message]</code></td>
+<td style="text-align: left;">Mark the test as skipped.</td>
 </tr>
 <tr>
-<td><code>[!] stderr [-count=N] pattern</code></td>
-<td>Match a regexp against stderr of the most recent <code>exec</code>/<code>wait</code>.</td>
+<td style="text-align: left;"><code>[!] stderr [-count=N] pattern</code></td>
+<td style="text-align: left;">Match a regular expression against stderr from the most recent <code>exec</code> or <code>wait</code>.</td>
 </tr>
 <tr>
-<td><code>stdin file</code></td>
-<td>Set stdin for the next <code>exec</code> command. File may be <code>stdout</code> or <code>stderr</code>.</td>
+<td style="text-align: left;"><code>stdin file</code></td>
+<td style="text-align: left;">Set stdin for the next <code>exec</code>; <code>file</code> may be <code>stdout</code> or <code>stderr</code>.</td>
 </tr>
 <tr>
-<td><code>stop [message]</code></td>
-<td>Stop the test early, marking it as passing.</td>
+<td style="text-align: left;"><code>stop [message]</code></td>
+<td style="text-align: left;">Stop the test early and mark it as passing.</td>
 </tr>
 <tr>
-<td><code>[!] stdout [-count=N] pattern</code></td>
-<td>Match a regexp against stdout of the most recent <code>exec</code>/<code>wait</code>.</td>
+<td style="text-align: left;"><code>[!] stdout [-count=N] pattern</code></td>
+<td style="text-align: left;">Match a regular expression against stdout from the most recent <code>exec</code> or <code>wait</code>.</td>
 </tr>
 <tr>
-<td><code>symlink file -&gt; target</code></td>
-<td>Create a symbolic link.</td>
+<td style="text-align: left;"><code>symlink file -&gt; target</code></td>
+<td style="text-align: left;">Create a symbolic link.</td>
 </tr>
 <tr>
-<td><code>unquote file...</code></td>
-<td>Strip leading <code>&gt;</code> characters from each line in the file.</td>
+<td style="text-align: left;"><code>unquote file...</code></td>
+<td style="text-align: left;">Strip leading <code>&gt;</code> characters from each line of a file.</td>
 </tr>
 <tr>
-<td><code>wait [command]</code></td>
-<td>Wait for all background commands (or a named job) to finish.</td>
+<td style="text-align: left;"><code>wait [command]</code></td>
+<td style="text-align: left;">Wait for all background commands, or for a named job.</td>
 </tr>
 </tbody>
 </table>
