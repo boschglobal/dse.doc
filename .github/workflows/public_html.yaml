@@ -7,35 +7,42 @@ on:  # yamllint disable-line rule:truthy
   pull_request:
     branches: [main]
   schedule:
+    # Rebuild twice daily so that changes in sibling repos are picked up.
     - cron: '0 6,12 * * *'
 
 permissions:
   contents: write
-  pull-requests: read
-  packages: write
+  packages: read
+
 
 jobs:
   deploy:
-    runs-on: [ubuntu-latest]
-    container:
-      image: ghcr.io/boschglobal/dse-docsy-builder:main
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout dse.doc
+        uses: actions/checkout@v4
         with:
+          path: dse.doc
           fetch-depth: 0
 
-      - name: Build
-        env:
-          HUGO_SECURITY_EXEC_OSENV: ".*"
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          hugo mod get -u
-          hugo --minify
+      - name: Log in to GitHub Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Pull documentation sources
+        run: make -C dse.doc pull
+
+      - name: Build site
+        run: make -C dse.doc build BUILDER_IMAGE=ghcr.io/boschglobal/dse-zensical-builder:latest
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./dse.doc/build/site
           publish_branch: public_html

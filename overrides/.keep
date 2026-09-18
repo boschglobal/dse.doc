@@ -1,0 +1,10 @@
+# Copyright 2026 Robert Bosch GmbH
+# SPDX-License-Identifier: Apache-2.0
+#
+# Zensical template overrides (MiniJinja, same structure as Material for MkDocs).
+# Place files here to override theme partials or add custom templates.
+# See: https://zensical.org/docs/customization/#extending-the-theme
+#
+# Zensical generates repo edit/view links automatically from
+# zensical.toml [project].repo_url and repo_name.
+# No override is needed.

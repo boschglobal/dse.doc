@@ -9,7 +9,7 @@ import (
 	"github.com/boschglobal/dse.doc/docker/cdocgen/internal/pkg/mddoc"
 )
 
-func Generate(input string, output string, cDir string, title string, linktitle string, jsonString string) error {
+func Generate(input string, output string, cDir string, title string, jsonString string) error {
 	cDirList := strings.Split(cDir, ",")
 	doc := mddoc.Mddoc{}
 	var frontmatter map[string]string
@@ -19,7 +19,7 @@ func Generate(input string, output string, cDir string, title string, linktitle 
 			fmt.Printf("error: Frontmatter could not be parsed")
 		}
 	}
-	doc.Frontmatter.SetTitle(title, linktitle)
+	doc.Frontmatter.SetTitle(title)
 	doc.Frontmatter.SetContent(frontmatter)
 	ast := ast.Ast{
 		Path: input,

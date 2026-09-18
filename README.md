@@ -1,5 +1,5 @@
 <!--
-Copyright 2023 Robert Bosch GmbH
+Copyright 2026 Robert Bosch GmbH
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -9,58 +9,75 @@ SPDX-License-Identifier: Apache-2.0
 ## Introduction
 
 Documentation project of the Dynamic Simulation Environment (DSE) Core Platform.
+Built with [Zensical](https://zensical.org) (latest stable) using a fully
+containerised Docker + Makefile workflow — no local toolchain installation required.
 
 
 ### Project Structure
 
-```
-L- content      Documentation content (used by Hugo to build the doc site).
-L- doc          Additional documentation resources (e.g. yEd image sources).
-L- licenses     Third Party Licenses.
-L- static       Static content (e.g. images).
-L- tools        Supporting tools.
+```text
+dse.doc
+├── content
+│   ├── docs                    <-- Documentation content aggregated from DSE repositories.
+│   ├── stylesheets             <-- Bosch brand-colour overrides.
+│   └── index.md                <-- Documentation site landing page.
+├── doc                         <-- Additional documentation resources (e.g. yEd sources).
+├── extra
+│   └── docker                  <-- Dockerfiles for documentation build tools.
+├── overrides                   <-- Zensical theme customisation directory.
+├── scripts                     <-- Project maintenance and build scripts.
+│   ├── copy-doc.sh             <-- Stage content into the generated docs tree.
+│   ├── gen_nav.py              <-- Generate the navigation configuration.
+│   ├── metadata-update.py      <-- Update generated documentation metadata.
+│   └── pull-doc.sh             <-- Clone documentation trees from source repositories.
+├── .github
+│   └── workflows               <-- CI workflows for building and publishing documentation.
+├── Dockerfile                  <-- Local development image.
+├── Makefile                    <-- Build, run, and clean targets.
+├── repos.txt                   <-- Source repository manifest.
+└── zensical.toml               <-- Zensical site configuration.
 ```
 
 
 ## Usage
 
-### Tools
-
-Generated documentation is built using containerised tools. Those
-tools can be built as follows:
-
 ```bash
-$ git clone https://github.com/boschglobal/dse.doc.git
-$ cd dse.doc
-$ make tools
-$ make docker
+# Clone the repository.
+git clone https://github.com/boschglobal/dse.doc.git
+cd dse.doc
+
+# Build the documentation images.
+make docker
+
+# Pull documentation and build the site.
+make pull
+make build
+
+# Serve the site at http://localhost:8000.
+make run
+
+# Remove generated build artifacts.
+make clean
+
+# Remove generated artifacts and cached content.
+make cleanall
 ```
 
-Alternatively, the latest Docker Images are available on ghcr.io and can be
-used as follows:
 
-```bash
-$ export DOC_CDOCGEN_IMAGE=ghcr.io/boschglobal/dse-cdocgen:main
-```
+## Configuration
 
+### sources.yaml
 
-### Build
+Defines which sub-directories from each sibling repository are copied into
+`content/` before the Zensical build runs.  Edit this file to add, remove, or
+remap content sources.  `repo: "."` entries are skipped (content lives in
+`dse.doc` itself).
 
-```bash
-# Install hugo.
-$ sudo snap install hugo
+> **Note:** Zensical does not yet have native multi-repo ("Subprojects")
+> support.  The `sources.yaml` + `scripts/fetch_sources.py` approach is the recommended
+> workaround until that feature ships.  Track progress at
+> https://zensical.org/about/roadmap/#subprojects
 
-# Clone the repo.
-$ git clone https://github.com/boschglobal/dse.doc.git
-$ cd dse.doc
-
-# Pull is latest versions of linked documentation (i.e Hugo modules/git repos).
-$ hugo mod get -u
-
-# Build and serve documentation.
-$ hugo server
-$ hugo server --baseURL http://localhost:1313/dse.doc/
-```
 
 ## Contribute
 

@@ -6,6 +6,7 @@ on:  # yamllint disable-line rule:truthy
   push:
     paths:
       - 'extra/docker/**'
+      - 'Makefile'
 
 permissions:
   contents: read
@@ -18,16 +19,24 @@ env:
 
 jobs:
   container:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         image:
+          # zensical-builder: build/run zensical.
+          - zensical-builder
+          # cdocgen: C header → Markdown API doc generator.
           - cdocgen
-          - docsy-builder
+          # plantuml: PlantUML diagram renderer.
           - plantuml
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+
+      - name: Read Zensical version
+        id: version
+        if: matrix.image == 'zensical-builder'
+        run: echo "version=$(make --no-print-directory -s print-zensical-version)" >> "$GITHUB_OUTPUT"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -53,5 +62,10 @@ jobs:
         with:
           push: true
           context: ./extra/docker/${{ matrix.image }}
+          build-args: |
+            ZENSICAL_VERSION=${{ steps.version.outputs.version }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+

@@ -11,19 +11,13 @@ FROM golang:bookworm AS builder
 ADD ./go /src
 RUN cd /src && make build
 
+FROM zensical/zensical:latest
 
-FROM debian:bookworm-slim
-LABEL maintainer="timothy.rule@de.bosch.com"
+USER root
+RUN apk add --no-cache git python3 py3-yaml
 
-RUN set -eux; \
-    apt-get -y update; \
-    apt-get -y install --no-install-recommends \
-        clang \
-        ; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/*
+COPY --from=builder /src/bin/cdocgen /usr/local/bin/cdocgen
 
-COPY --from=builder /src/bin /usr/local/bin
+WORKDIR /docs
 
-WORKDIR /tmp/code
 ENTRYPOINT ["/usr/local/bin/cdocgen"]

@@ -1,0 +1,11 @@
+# Copyright 2026 Robert Bosch GmbH
+# SPDX-License-Identifier: Apache-2.0
+#
+
+https://github.com/boschglobal/dse.clib.git
+https://github.com/boschglobal/dse.fmi.git
+https://github.com/boschglobal/dse.modelc.git
+https://github.com/boschglobal/dse.network.git
+https://github.com/boschglobal/dse.schemas.git
+https://github.com/boschglobal/dse.sdp.git
+https://github.com/boschglobal/dse.standards.git

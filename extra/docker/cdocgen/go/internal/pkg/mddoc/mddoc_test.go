@@ -183,7 +183,7 @@ func TestGenerate(t *testing.T) {
 	if err != nil {
 		t.Errorf("Unexpected error.")
 	}
-	doc.Frontmatter.SetTitle("header.h", "link_header.h")
+	doc.Frontmatter.SetTitle("header.h")
 	doc.Frontmatter.SetContent(frontmatter)
 	ast := ast.Ast{
 		Path: "test/testdata/header.h",
@@ -228,7 +228,7 @@ func TestMissingOutputFile(t *testing.T) {
 	if err != nil {
 		t.Errorf("Unexpected error.")
 	}
-	doc.Frontmatter.SetTitle("header.h", "link_header.h")
+	doc.Frontmatter.SetTitle("header.h")
 	doc.Frontmatter.SetContent(frontmatter)
 	ast := ast.Ast{
 		Path: "test/testdata/header.h",

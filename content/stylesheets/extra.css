@@ -1,0 +1,94 @@
+/*
+ * Copyright 2026 Robert Bosch GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Bosch brand colours for the Zensical (Material for MkDocs) theme.
+ *
+ * Zensical (Material for MkDocs) uses CSS custom properties on :root and [data-md-color-scheme].
+ * This file is declared in zensical.toml under project.extra_css.
+ *
+ * Bosch colour palette reference:
+ *   Red         #E20015
+ *   Fuchsia     #B90276
+ *   Violet      #50237F
+ *   Dark Blue   #005691   ← primary
+ *   Light Blue  #008ECF   ← accent
+ *   Turquoise   #00A8B0
+ *   Light Green #78BE20
+ *   Dark Green  #006249
+ *   White       #FFFFFF
+ */
+
+.md-footer__inner {
+max-width: 61rem;
+margin: 0 auto;
+padding: 0.6rem 1rem;
+display: flex;
+align-items: center;
+gap: 2rem;
+}
+
+.md-footer__link {
+flex: 1;
+min-width: 0;
+display: flex;
+align-items: center;
+padding: 0.2rem 0;
+color: var(--md-default-fg-color);
+text-decoration: none;
+}
+
+.md-footer__direction {
+color: var(--md-default-fg-color);
+font-size: 0.65rem;
+line-height: 1.2;
+font-weight: 600;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+}
+
+.md-footer__title {
+color: var(--md-default-fg-color);
+font-size: 0.9rem;
+line-height: 1.25;
+font-weight: 500;
+}
+
+.md-footer__button {
+width: 1.25rem;
+height: 1.25rem;
+margin: 0 0.3rem;
+padding: 0;
+color: var(--md-default-fg-color);
+}
+
+.md-footer__button .md-icon,
+.md-footer__button svg {
+width: 1.2rem;
+height: 1.2rem;
+fill: currentColor;
+}
+
+.md-footer__link--prev {
+justify-content: flex-start;
+text-align: left;
+}
+
+.md-footer__link--next {
+justify-content: flex-end;
+text-align: right;
+}
+
+@media screen and (max-width: 44.9375em) {
+.md-footer__inner {
+flex-direction: column;
+align-items: stretch;
+gap: 0.25rem;
+}
+
+.md-footer__link {
+    width: 100%;
+}
+
+
+}

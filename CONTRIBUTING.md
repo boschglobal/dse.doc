@@ -30,7 +30,7 @@ used by this project.
 $ make super-linter
 ...
 [NOTICE]   All file(s) linted successfully with no errors detected
-```
+``
 
 
 ### Using ClangFormat
@@ -53,7 +53,7 @@ $ dse-clang-format dse/clib/util/strings.c
 Target is dse/clib/util/strings.c (file).
 Using DSE Clang Format rules file.
 Formatting dse/clib/util/strings.c
-```
+``
 
 
 ## Add / retain copyright notices
@@ -99,7 +99,7 @@ By making a contribution to this project, I certify that:
     personal information I submit with it, including my sign-off) is
     maintained indefinitely and may be redistributed consistent with
     this project or the open source license(s) involved.
-```
+``
 
 With the sign-off in a commit message you certify that you authored the patch
 or otherwise have the right to submit it under an open source license. The
@@ -108,13 +108,13 @@ Origin 1.1 for your contribution just append a line
 
 ```text
 Signed-off-by: Random J Developer <random@developer.example.org>
-```
+``
 
 to every commit message using your real name or your pseudonym and a valid
 email address.
 
 If you have set your `user.name` and `user.email` git configs you can
-automatically sign the commit by running the git-commit command with the `-s`
+automatically sign the commit by running the git-commit command with the `-s
 option.  There may be multiple sign-offs if more than one developer was
 involved in authoring the contribution.
 

@@ -19,13 +19,11 @@ type Mddoc struct {
 
 type Frontmatter struct {
 	title     string
-	linkTitle string
 	content   map[string]string
 }
 
-func (f *Frontmatter) SetTitle(title string, linkTitle string) {
+func (f *Frontmatter) SetTitle(title string) {
 	f.title = title
-	f.linkTitle = linkTitle
 }
 
 func (f *Frontmatter) SetContent(content map[string]string) {
@@ -244,7 +242,6 @@ func (mddoc *Mddoc) Scan(header string, scanDir ...string) error {
 func (mddoc *Mddoc) Generate(path string) error {
 	doc := "---\n"
 	doc += fmt.Sprintf("title: %s\n", mddoc.Frontmatter.title)
-	doc += fmt.Sprintf("linkTitle: %s\n", mddoc.Frontmatter.linkTitle)
 	for key, value := range mddoc.Frontmatter.content {
 		doc += fmt.Sprintf("%s: %s\n", key, value)
 	}
