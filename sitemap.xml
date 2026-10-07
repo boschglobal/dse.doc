@@ -43,18 +43,6 @@
         <loc>https://boschglobal.github.io/dse.doc/user/models/_index/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/network/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/network/index_old/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/network/example/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/network/task/</loc>
-      </url>
-      <url>
         <loc>https://boschglobal.github.io/dse.doc/user/models/fmimcl/</loc>
       </url>
       <url>
@@ -88,13 +76,16 @@
         <loc>https://boschglobal.github.io/dse.doc/user/models/csv/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/csv/script/</loc>
-      </url>
-      <url>
         <loc>https://boschglobal.github.io/dse.doc/user/models/csv/stack/</loc>
       </url>
       <url>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/csv/script/</loc>
+      </url>
+      <url>
         <loc>https://boschglobal.github.io/dse.doc/user/models/lua/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/lua/stack/</loc>
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/user/models/lua/example/</loc>
@@ -103,7 +94,16 @@
         <loc>https://boschglobal.github.io/dse.doc/user/models/lua/script/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/user/models/lua/stack/</loc>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/network/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/network/index_old/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/network/example/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/user/models/network/task/</loc>
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/doc/arch/c4/</loc>
@@ -241,9 +241,6 @@
         <loc>https://boschglobal.github.io/dse.doc/apis/modelc/simmock/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/apis/clib/_index/</loc>
-      </url>
-      <url>
         <loc>https://boschglobal.github.io/dse.doc/apis/clib/csv/</loc>
       </url>
       <url>
@@ -259,9 +256,6 @@
         <loc>https://boschglobal.github.io/dse.doc/apis/clib/schedule/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/apis/fmi/_index/</loc>
-      </url>
-      <url>
         <loc>https://boschglobal.github.io/dse.doc/apis/fmi/fmigateway/</loc>
       </url>
       <url>
@@ -272,9 +266,6 @@
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/apis/fmi/fmu/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/apis/network/_index/</loc>
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/apis/network/functions/</loc>
