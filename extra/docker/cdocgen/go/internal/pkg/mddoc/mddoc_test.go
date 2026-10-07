@@ -8,6 +8,7 @@ import (
 
 	"encoding/json"
 	"os"
+	"os/exec"
 	"regexp"
 	"testing"
 
@@ -144,7 +145,15 @@ func TestInvalidFragment(t *testing.T) {
 	}
 }
 
+func requireClang(t *testing.T) {
+	t.Helper()
+	if _, err := exec.LookPath("clang"); err != nil {
+		t.Skipf("clang is required for this test but was not found in PATH: %v", err)
+	}
+}
+
 func TestMddocNoFunctionMatch(t *testing.T) {
+	requireClang(t)
 	doc := Mddoc{}
 	tmpDir := t.TempDir()
 	ast := ast.Ast{
@@ -175,6 +184,7 @@ func TestMddocNoFunctionMatch(t *testing.T) {
 }
 
 func TestGenerate(t *testing.T) {
+	requireClang(t)
 	doc := Mddoc{}
 	tmpDir := t.TempDir()
 	jsonStr := `{"name": "foo", "content": "bar"}`
@@ -220,7 +230,43 @@ func TestGenerate(t *testing.T) {
 	}
 }
 
+func TestGenerateIncludesLinkTitle(t *testing.T) {
+	requireClang(t)
+	doc := Mddoc{}
+	tmpDir := t.TempDir()
+	jsonStr := `{"name": "foo", "content": "bar"}`
+	var frontmatter map[string]string
+	err := json.Unmarshal([]byte(jsonStr), &frontmatter)
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	doc.Frontmatter.SetTitle("header.h")
+	doc.Frontmatter.SetLinkTitle("linkheader.h")
+	doc.Frontmatter.SetContent(frontmatter)
+	ast := ast.Ast{
+		Path: "test/testdata/header.h",
+	}
+	err = ast.Load()
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	ast.Parse(&doc.Index)
+	doc.Scan(ast.Path, "test/testdata/cfiles")
+	err = doc.Generate(tmpDir + "/output.md")
+	if err != nil {
+		t.Fatalf("Unexpected Error while Generate: %s", err)
+	}
+	data, err := os.ReadFile(tmpDir + "/output.md")
+	if err != nil {
+		t.Fatalf("Expected output.md to exist: %v", err)
+	}
+	if !strings.Contains(string(data), "linkTitle: linkheader.h") {
+		t.Fatalf("Generated markdown is missing linkTitle front matter: %s", string(data))
+	}
+}
+
 func TestMissingOutputFile(t *testing.T) {
+	requireClang(t)
 	doc := Mddoc{}
 	jsonStr := `{"name": "foo", "content": "bar"}`
 	var frontmatter map[string]string

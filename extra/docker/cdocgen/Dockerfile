@@ -14,7 +14,7 @@ RUN cd /src && make build
 FROM zensical/zensical:latest
 
 USER root
-RUN apk add --no-cache git python3 py3-yaml
+RUN apk add --no-cache git python3 py3-yaml clang
 
 COPY --from=builder /src/bin/cdocgen /usr/local/bin/cdocgen
 

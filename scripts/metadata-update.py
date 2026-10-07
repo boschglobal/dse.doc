@@ -24,6 +24,14 @@ DEFAULT_REPO_ORDER = [
 REPO_WEIGHT_STEP = 1000
 FILE_WEIGHT_STEP = 10
 
+SKIP_WEIGHT_FILES = {
+    "readme.md",
+    "example.md",
+    "script.md",
+    "task.md",
+    "old_index.md",
+    "index_old.md",
+}
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -168,7 +176,7 @@ def process_repo(repo_dir: Path, repo_index: int) -> int:
 
     for path in markdown_files:
 
-        if path.name.lower() == "readme.md":
+        if path.name.lower() in SKIP_WEIGHT_FILES:
             continue
 
         text = read_text(path)

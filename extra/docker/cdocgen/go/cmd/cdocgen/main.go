@@ -32,7 +32,7 @@ func main() {
 	output := flag.String("output", "", "path of generated Markdown documentation file (required)")
 	cDir := flag.String("cdir", "", "search path (comma separated list) for C code files which contain documentation")
 	title := flag.String("title", "", "title (in frontmatter) of the generated Markdown documentation (required)")
-	flag.String("linktitle", "", "deprecated: ignored (was Hugo-specific)")
+	linkTitle := flag.String("linktitle", "", "link title used in Zensical navigation")
 	frontmatter := flag.String("frontmatter", "", "frontmatter (JSON string) for the generated Markdown documentation")
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), usage)
@@ -51,7 +51,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "ERROR: --title must be specified\n")
 		os.Exit(1)
 	}
-	err := cdocgen.Generate(*input, *output, *cDir, *title, *frontmatter)
+	err := cdocgen.Generate(*input, *output, *cDir, *title, *linkTitle, *frontmatter)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: --Output file was not generated\n")
 		os.Exit(1)
