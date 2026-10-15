@@ -20,6 +20,12 @@ extra_css        = ["stylesheets/extra.css"]
 
 # ── Markdown extensions ──────────────────────────────────────────────────────
 
+[project.markdown_extensions.admonition]
+
+[project.markdown_extensions.def_list]
+
+[project.markdown_extensions.footnotes]
+
 [project.markdown_extensions.pymdownx.highlight]
 
 [project.markdown_extensions.pymdownx.inlinehilite]
@@ -29,11 +35,9 @@ extra_css        = ["stylesheets/extra.css"]
 base_path = ["build/staged"]
 check_paths = true
 
-[project.markdown_extensions.admonition]
-
 [project.markdown_extensions.pymdownx.superfences]
 
-[project.markdown_extensions.def_list]
+
 
 
 # ── Theme ────────────────────────────────────────────────────────────────────
