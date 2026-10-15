@@ -6871,15 +6871,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark-core-i7-1370p" class="md-nav__link">
+  <a href="#benchmark-core-i7-1370p-october-2026" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Benchmark (Core i7-1370P)
+        Benchmark (Core i7-1370P) October 2026
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Benchmark (Core i7-1370P)">
+    <nav class="md-nav" aria-label="Benchmark (Core i7-1370P) October 2026">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6921,15 +6921,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark-codespace-4-vcpu" class="md-nav__link">
+  <a href="#benchmark-core-i7-1370p-march-2025" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Benchmark (Codespace 4 vCPU)
+        Benchmark (Core i7-1370P) March 2025
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Benchmark (Codespace 4 vCPU)">
+    <nav class="md-nav" aria-label="Benchmark (Core i7-1370P) March 2025">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6956,6 +6956,56 @@
         
           <li class="md-nav__item">
   <a href="#model-count_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Model Count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-codespace-4-vcpu-march-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Benchmark (Codespace 4 vCPU) March 2025
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark (Codespace 4 vCPU) March 2025">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-count_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signal Count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal-throughput_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signal Throughput
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-count_2" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Model Count
@@ -7213,13 +7263,19 @@ simulation that takes into account:</p>
 simulation topologies. These topologies include:</p>
 <ul>
 <li><strong>Model Runtime</strong> - Stacked model instance (single process) / Loopback SimBus</li>
-<li><strong>Stacked w. Redis</strong> - Stacked model instance (single process) / Redis SimBus</li>
+<li><strong>Stacked w. Redis</strong>[^1] - Stacked model instance (single process) / Redis SimBus</li>
 <li><strong>Distributed w. Redis</strong> - Distributed model instances (process per model) / Redis SimBus</li>
+<li><strong>Distributed w. Unix Stream</strong>[^2] - Distributed model instances (process per model) / Unix Stream SimBus</li>
+<li><strong>Distributed w. TCP Stream</strong>[^2] - Distributed model instances (process per model) / TCP Stream SimBus</li>
+<li><strong>Stacked w. TCP Stream</strong>[^2] - Stacked model instance (single process) / TCP Stream SimBus</li>
 </ul>
 <p>All benchmark simulations are executed using the Simer docker appliance with
 a Co-Simulation step size of 0.5mS. Each simulation runs for 1 "simulation"
 minute (i.e. a total of 2000 simulation steps).</p>
-<h2 id="benchmark-core-i7-1370p">Benchmark (Core i7-1370P)</h2>
+<h2 id="benchmark-core-i7-1370p-october-2026">Benchmark (Core i7-1370P) October 2026</h2>
+<blockquote>
+<p>Info: Linux RT kernel enabled.</p>
+</blockquote>
 <p>Host system is a ThinkPad T16 G2 (Intel Core i7-1370P, 1900 Mhz, 14 Core, 32 GB Memory)
 with Linux running in WSL2. All binaries are compiled for <code>amd64</code> architecture
 with optimization <code>-03</code>. Values are presented relative to realtime operation.</p>
@@ -7246,7 +7302,7 @@ with optimization <code>-03</code>. Values are presented relative to realtime op
 </tr>
 </tbody>
 </table>
-<p><img alt="benchmark-signal-count" src="signal_count.png" /></p>
+<p><img alt="benchmark-signal-count" src="2026_oct_signal_count.png" /></p>
 <h3 id="signal-throughput">Signal Throughput</h3>
 <table>
 <thead>
@@ -7273,7 +7329,7 @@ with optimization <code>-03</code>. Values are presented relative to realtime op
 <blockquote>
 <p>Note: **Represents saturation with 4000 signal changes per simulation step.</p>
 </blockquote>
-<p><img alt="benchmark-signal-throughput" src="signal_throughput.png" /></p>
+<p><img alt="benchmark-signal-throughput" src="2026_oct_signal_throughput.png" /></p>
 <h3 id="model-count">Model Count</h3>
 <table>
 <thead>
@@ -7297,12 +7353,11 @@ with optimization <code>-03</code>. Values are presented relative to realtime op
 </tr>
 </tbody>
 </table>
-<p><img alt="benchmark-model-count" src="model_fanout.png" /></p>
-<h2 id="benchmark-codespace-4-vcpu">Benchmark (Codespace 4 vCPU)</h2>
-<p>Host system is a Codespace 4 core virtual machine. Reports CPU as Xeon Platinum 8370C
-(Intel(R) Xeon(R) Platinum 8370C CPU, 2.80GHz, 4 Core, 16 GB Memory) with Linux.
-All binaries are compiled for <code>amd64</code> architecture with optimization <code>-03</code>.
-Values are presented relative to realtime operation.</p>
+<p><img alt="benchmark-model-count" src="2026_oct_model_fanout.png" /></p>
+<h2 id="benchmark-core-i7-1370p-march-2025">Benchmark (Core i7-1370P) March 2025</h2>
+<p>Host system is a ThinkPad T16 G2 (Intel Core i7-1370P, 1900 Mhz, 14 Core, 32 GB Memory)
+with Linux running in WSL2. All binaries are compiled for <code>amd64</code> architecture
+with optimization <code>-03</code>. Values are presented relative to realtime operation.</p>
 <h3 id="signal-count_1">Signal Count</h3>
 <table>
 <thead>
@@ -7326,7 +7381,7 @@ Values are presented relative to realtime operation.</p>
 </tr>
 </tbody>
 </table>
-<p><img alt="benchmark-signal-count" src="codespace4core-signal_count.png" /></p>
+<p><img alt="benchmark-signal-count" src="2025_march_signal_count.png" /></p>
 <h3 id="signal-throughput_1">Signal Throughput</h3>
 <table>
 <thead>
@@ -7353,8 +7408,88 @@ Values are presented relative to realtime operation.</p>
 <blockquote>
 <p>Note: **Represents saturation with 4000 signal changes per simulation step.</p>
 </blockquote>
-<p><img alt="benchmark-signal-throughput" src="codespace4core-signal_throughput.png" /></p>
+<p><img alt="benchmark-signal-throughput" src="2025_march_signal_throughput.png" /></p>
 <h3 id="model-count_1">Model Count</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SIGNAL_COUNT</code></td>
+<td>Constant at 4000</td>
+</tr>
+<tr>
+<td><code>SIGNAL_CHANGE</code></td>
+<td>Constant at 400, distributed evenly over all models</td>
+</tr>
+<tr>
+<td><code>MODEL_COUNT</code></td>
+<td>Increasing range (count = 1 2 3 4 6 8 12 16)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="benchmark-model-count" src="2025_march_model_fanout.png" /></p>
+<h2 id="benchmark-codespace-4-vcpu-march-2025">Benchmark (Codespace 4 vCPU) March 2025</h2>
+<p>Host system is a Codespace 4 core virtual machine. Reports CPU as Xeon Platinum 8370C
+(Intel(R) Xeon(R) Platinum 8370C CPU, 2.80GHz, 4 Core, 16 GB Memory) with Linux.
+All binaries are compiled for <code>amd64</code> architecture with optimization <code>-03</code>.
+Values are presented relative to realtime operation.</p>
+<h3 id="signal-count_2">Signal Count</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SIGNAL_COUNT</code></td>
+<td>Increasing range (count = 1000 * 2^N for N=0,1,2,3,4,5)</td>
+</tr>
+<tr>
+<td><code>SIGNAL_CHANGE</code></td>
+<td>Constant at 200 signals per simulation step, distributed evenly over all models</td>
+</tr>
+<tr>
+<td><code>MODEL_COUNT</code></td>
+<td>Constant at 5</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="benchmark-signal-count" src="2025_march_codespace4core-signal_count.png" /></p>
+<h3 id="signal-throughput_2">Signal Throughput</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SIGNAL_COUNT</code></td>
+<td>Constant at 4000</td>
+</tr>
+<tr>
+<td><code>SIGNAL_CHANGE</code></td>
+<td>Increasing range (change per model = 25 50 100 200 400 800**), distributed evenly over all models</td>
+</tr>
+<tr>
+<td><code>MODEL_COUNT</code></td>
+<td>Constant at 5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: **Represents saturation with 4000 signal changes per simulation step.</p>
+</blockquote>
+<p><img alt="benchmark-signal-throughput" src="2025_march_codespace4core-signal_throughput.png" /></p>
+<h3 id="model-count_2">Model Count</h3>
 <table>
 <thead>
 <tr>
@@ -7377,7 +7512,9 @@ Values are presented relative to realtime operation.</p>
 </tr>
 </tbody>
 </table>
-<p><img alt="benchmark-model-count" src="codespace4core-model_fanout.png" /></p>
+<p><img alt="benchmark-model-count" src="2025_march_codespace4core-model_fanout.png" /></p>
+<p>[^1]: Only in 2025 benchmark.
+[^2]: New in 2026 benchmarks.</p>
 
 
   <nav class="md-tags" >
