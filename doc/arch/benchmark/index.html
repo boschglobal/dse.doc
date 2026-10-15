@@ -7263,11 +7263,11 @@ simulation that takes into account:</p>
 simulation topologies. These topologies include:</p>
 <ul>
 <li><strong>Model Runtime</strong> - Stacked model instance (single process) / Loopback SimBus</li>
-<li><strong>Stacked w. Redis</strong>[^1] - Stacked model instance (single process) / Redis SimBus</li>
+<li><strong>Stacked w. Redis</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> - Stacked model instance (single process) / Redis SimBus</li>
 <li><strong>Distributed w. Redis</strong> - Distributed model instances (process per model) / Redis SimBus</li>
-<li><strong>Distributed w. Unix Stream</strong>[^2] - Distributed model instances (process per model) / Unix Stream SimBus</li>
-<li><strong>Distributed w. TCP Stream</strong>[^2] - Distributed model instances (process per model) / TCP Stream SimBus</li>
-<li><strong>Stacked w. TCP Stream</strong>[^2] - Stacked model instance (single process) / TCP Stream SimBus</li>
+<li><strong>Distributed w. Unix Stream</strong><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> - Distributed model instances (process per model) / Unix Stream SimBus</li>
+<li><strong>Distributed w. TCP Stream</strong><sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup> - Distributed model instances (process per model) / TCP Stream SimBus</li>
+<li><strong>Stacked w. TCP Stream</strong><sup id="fnref3:2"><a class="footnote-ref" href="#fn:2">2</a></sup> - Stacked model instance (single process) / TCP Stream SimBus</li>
 </ul>
 <p>All benchmark simulations are executed using the Simer docker appliance with
 a Co-Simulation step size of 0.5mS. Each simulation runs for 1 "simulation"
@@ -7513,8 +7513,17 @@ Values are presented relative to realtime operation.</p>
 </tbody>
 </table>
 <p><img alt="benchmark-model-count" src="2025_march_codespace4core-model_fanout.png" /></p>
-<p>[^1]: Only in 2025 benchmark.
-[^2]: New in 2026 benchmarks.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Only in 2025 benchmark.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>New in 2026 benchmarks.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
   <nav class="md-tags" >
