@@ -7601,6 +7601,12 @@ will start <em>all</em> models in that stack in a single instance of the ModelC 
 </code></pre></div>
 </details>
 
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Simer will run any simulation with a <code>loopback</code> transport in a stacked ModelC runtime.
+The transport will be detected from the <code>-transport</code> CLI option, the <code>SIMBUS_TRANSPORT</code>
+environment variable, or any <code>-env</code> CLI option which defines <code>SIMBUS_TRANSPORT</code>.</p>
+</div>
 <h3 id="environment-files">Environment &amp; Files</h3>
 <p><strong>Environment variables</strong> may be specified in either the <code>runtime:env</code> property
 of a stack or model, or with the <code>-env</code> CLI option of the <code>simer</code> tool.
