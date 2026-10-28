@@ -148,10 +148,16 @@
         <loc>https://boschglobal.github.io/dse.doc/doc/tools/trace/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/builder/</loc>
+        <loc>https://boschglobal.github.io/dse.doc/doc/devel/contribution/</loc>
       </url>
       <url>
-        <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/_index/</loc>
+        <loc>https://boschglobal.github.io/dse.doc/doc/devel/documentation/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/</loc>
+      </url>
+      <url>
+        <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/builder/</loc>
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/workflows/</loc>
@@ -167,12 +173,6 @@
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/doc/devel/sdp/tools/lsp/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/doc/devel/contribution/</loc>
-      </url>
-      <url>
-        <loc>https://boschglobal.github.io/dse.doc/doc/devel/documentation/</loc>
       </url>
       <url>
         <loc>https://boschglobal.github.io/dse.doc/doc/devel/debug/_index/</loc>
